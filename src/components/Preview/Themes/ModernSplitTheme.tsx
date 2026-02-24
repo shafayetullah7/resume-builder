@@ -5,7 +5,7 @@ import { Mail, Phone, MapPin, Link as LinkIcon, Linkedin, Github, MessageSquare 
 
 const ModernSplitTheme: React.FC = () => {
     const { resumeData } = useResume();
-    const { personalInfo, experience, education, skills, projects, languages, interests, interestsFormat, interestsParagraph } = resumeData;
+    const { personalInfo, experience, education, skills, projects, languages, interests, interestsFormat, interestsParagraph, sectionLabels } = resumeData;
 
     const getHostname = (url: string) => {
         try {
@@ -51,7 +51,7 @@ const ModernSplitTheme: React.FC = () => {
 
                 {/* Contact Info */}
                 <div className="mb-6">
-                    <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>Contact</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>{sectionLabels.contact}</h2>
                     <div className="flex flex-col gap-3 text-sm font-normal text-gray-700">
                         {personalInfo.address && (
                             <div className="flex items-start gap-3">
@@ -109,7 +109,7 @@ const ModernSplitTheme: React.FC = () => {
                 {/* Profile Summary */}
                 {personalInfo.summary && (
                     <div className="mb-8">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>Profile</h2>
+                        <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>{sectionLabels.profile}</h2>
                         <div className="text-sm font-normal text-gray-700 leading-relaxed whitespace-pre-wrap">
                             {personalInfo.summary}
                         </div>
@@ -120,7 +120,7 @@ const ModernSplitTheme: React.FC = () => {
                 {languages.length > 0 && (
                     <div className="mb-6 mt-2">
                         <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
-                            Languages
+                            {sectionLabels.languages}
                         </h2>
                         <div className="flex flex-col gap-3">
                             {languages.map((lang: Language) => (
@@ -138,7 +138,7 @@ const ModernSplitTheme: React.FC = () => {
                     interestsParagraph.trim() && (
                         <div className="mb-6 mt-4">
                             <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
-                                Future Focus
+                                {sectionLabels.interests}
                             </h2>
                             <div className="text-sm font-normal text-gray-700 leading-relaxed whitespace-pre-wrap">
                                 {interestsParagraph}
@@ -149,7 +149,7 @@ const ModernSplitTheme: React.FC = () => {
                     interests && interests.length > 0 && (
                         <div className="mb-6 mt-4">
                             <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
-                                Future Focus
+                                {sectionLabels.interests}
                             </h2>
                             <div className="flex flex-col gap-2">
                                 {interests.map((interest: any) => (
@@ -171,7 +171,7 @@ const ModernSplitTheme: React.FC = () => {
                 {skills.length > 0 && (
                     <section className="mb-6">
                         <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
-                            Skills
+                            {sectionLabels.skills}
                         </h2>
                         <div className="flex flex-col gap-3">
                             {skills.map((skillCat: SkillCategory) => (
@@ -237,7 +237,7 @@ const ModernSplitTheme: React.FC = () => {
                             {education.length > 0 && (
                                 <section className="mb-6">
                                     <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
-                                        Education and Training
+                                        {sectionLabels.education}
                                     </h2>
                                     <div className="flex flex-col">
                                         {education.map((edu: Education) => (
@@ -256,7 +256,7 @@ const ModernSplitTheme: React.FC = () => {
                             {experience.length > 0 && (
                                 <section className="mb-6">
                                     <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
-                                        Work Experience
+                                        {sectionLabels.experience}
                                     </h2>
                                     <div className="flex flex-col">
                                         {experience.map((exp: Experience) => (
@@ -302,7 +302,7 @@ const ModernSplitTheme: React.FC = () => {
                             {projects.length > 0 && (
                                 <section className="mb-6">
                                     <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
-                                        Projects
+                                        {sectionLabels.projects}
                                     </h2>
                                     <div className="flex flex-col">
                                         {projects.map((proj: Project) => (

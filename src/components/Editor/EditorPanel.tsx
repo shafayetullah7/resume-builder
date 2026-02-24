@@ -8,7 +8,7 @@ import LanguagesForm from './LanguagesForm';
 import InterestsForm from './InterestsForm';
 import SectionLabelsForm from './SectionLabelsForm';
 import { useResume } from '../../store/ResumeContext';
-import { User, Briefcase, GraduationCap, Wrench, ChevronDown, ChevronUp, FolderGit2, Languages, Sparkles, Settings } from 'lucide-react';
+import { User, Briefcase, GraduationCap, Wrench, ChevronDown, ChevronUp, FolderGit2, Languages, Sparkles, Settings, RotateCcw } from 'lucide-react';
 
 interface AccordionItemProps {
     title: string;
@@ -51,7 +51,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, icon, children, is
 
 const EditorPanel: React.FC = () => {
     const [openSection, setOpenSection] = useState<string>('personal');
-    const { resumeData, setTheme } = useResume();
+    const { resumeData, setTheme, resetData } = useResume();
 
     const toggleSection = (section: string) => {
         setOpenSection(openSection === section ? '' : section);
@@ -153,6 +153,19 @@ const EditorPanel: React.FC = () => {
             >
                 <SectionLabelsForm />
             </AccordionItem>
+
+            <div className="pt-8 mt-8 border-t border-gray-200">
+                <button
+                    onClick={resetData}
+                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 border border-red-200 rounded-lg text-red-600 hover:bg-red-50 transition-colors text-sm font-medium"
+                >
+                    <RotateCcw size={16} />
+                    Reset to Default Data
+                </button>
+                <p className="mt-2 text-xs text-gray-500 text-center">
+                    This will clear all your progress and restore the example content.
+                </p>
+            </div>
         </div>
     );
 };

@@ -36,6 +36,39 @@ const PersonalInfoForm: React.FC = () => {
                     />
                 </div>
                 <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                    <input
+                        type="text"
+                        name="dateOfBirth"
+                        value={personalInfo.dateOfBirth || ''}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                        placeholder="01/01/1990"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Nationality</label>
+                    <input
+                        type="text"
+                        name="nationality"
+                        value={personalInfo.nationality || ''}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                        placeholder="American"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                    <input
+                        type="text"
+                        name="gender"
+                        value={personalInfo.gender || ''}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                        placeholder="Female"
+                    />
+                </div>
+                <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <input
                         type="email"
@@ -57,15 +90,15 @@ const PersonalInfoForm: React.FC = () => {
                         placeholder="+1 (555) 123-4567"
                     />
                 </div>
-                <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">WhatsApp</label>
                     <input
-                        type="text"
-                        name="address"
-                        value={personalInfo.address}
+                        type="tel"
+                        name="whatsapp"
+                        value={personalInfo.whatsapp || ''}
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                        placeholder="San Francisco, CA"
+                        placeholder="+1 (555) 000-0000"
                     />
                 </div>
                 <div>
@@ -90,7 +123,7 @@ const PersonalInfoForm: React.FC = () => {
                         placeholder="https://github.com/..."
                     />
                 </div>
-                <div className="md:col-span-2">
+                <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Portfolio / Website</label>
                     <input
                         type="url"
@@ -99,6 +132,17 @@ const PersonalInfoForm: React.FC = () => {
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
                         placeholder="https://yourwebsite.com"
+                    />
+                </div>
+                <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                    <input
+                        type="text"
+                        name="address"
+                        value={personalInfo.address}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                        placeholder="San Francisco, CA"
                     />
                 </div>
             </div>

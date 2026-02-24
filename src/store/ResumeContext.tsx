@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { ResumeData, PersonalInfo, Experience, Education, SkillCategory, Project, Language, SectionLabels } from '../types/resume';
 
@@ -157,12 +157,48 @@ interface ResumeContextType {
     updateInterestsFormat: (format: 'bullets' | 'paragraph') => void;
     updateInterestsParagraph: (text: string) => void;
     updateSectionLabels: (data: Partial<SectionLabels>) => void;
+    resetData: () => void;
 }
 
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
 
 export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [resumeData, setResumeData] = useState<ResumeData>(initialData);
+    const [resumeData, setResumeData] = useState<ResumeData>(() => {
+        const savedData = localStorage.getItem('resume-builder-data');
+        if (savedData) {
+            try {
+                const parsed = JSON.parse(savedData);
+                // Deep merge essential objects to ensure new keys (like whatsapp or sectionLabels) exist
+                return {
+                    ...initialData,
+                    ...parsed,
+                    personalInfo: {
+                        ...initialData.personalInfo,
+                        ...(parsed.personalInfo || {})
+                    },
+                    sectionLabels: {
+                        ...initialData.sectionLabels,
+                        ...(parsed.sectionLabels || {})
+                    },
+                    // Ensure arrays are preserved from parsed data
+                    experience: parsed.experience || initialData.experience,
+                    education: parsed.education || initialData.education,
+                    skills: parsed.skills || initialData.skills,
+                    projects: parsed.projects || initialData.projects,
+                    languages: parsed.languages || initialData.languages,
+                    interests: parsed.interests || initialData.interests,
+                };
+            } catch (e) {
+                console.error('Failed to parse saved resume data:', e);
+                return initialData;
+            }
+        }
+        return initialData;
+    });
+
+    useEffect(() => {
+        localStorage.setItem('resume-builder-data', JSON.stringify(resumeData));
+    }, [resumeData]);
 
     const setTheme = (theme: string) => setResumeData(prev => ({ ...prev, theme }));
 
@@ -371,6 +407,13 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         }));
     };
 
+    const resetData = () => {
+        if (window.confirm('Are you sure you want to clear all data and reset to defaults?')) {
+            setResumeData(initialData);
+            localStorage.removeItem('resume-builder-data');
+        }
+    };
+
     return (
         <ResumeContext.Provider
             value={{
@@ -398,6 +441,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 updateInterestsFormat,
                 updateInterestsParagraph,
                 updateSectionLabels,
+                resetData,
             }}
         >
             {children}
