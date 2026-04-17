@@ -22,7 +22,7 @@ const PreviewPanel: React.FC = () => {
                 <div className="flex-1 sm:flex-none"></div>
                 <button
                     onClick={() => handlePrint()}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors w-full sm:w-auto justify-center"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors"
                 >
                     <Download size={16} />
                     <span>Download PDF</span>
@@ -31,21 +31,14 @@ const PreviewPanel: React.FC = () => {
 
             {/* A4 Container */}
             <div className="w-full flex-1 overflow-auto rounded-b-lg shadow-sm flex flex-col items-center">
-                {/*
-          A4 sizing is standardized at 210mm x 297mm.
-          In web, 1mm is roughly 3.78px (at 96 DPI).
-          210mm = 794px, 297mm = 1123px.
-        */}
                 <div
                     className="relative max-w-full print:bg-white bg-white shadow-md mx-auto print:shadow-none print:mx-0 overflow-hidden transform-origin-top"
                     style={{
                         width: '210mm',
                         minHeight: 'auto',
-                        // Simple scale on mobile to fit screen width
                         zoom: 'clamp(0.4, 100vw / 220mm, 1)',
                     }}
                 >
-                    {/* Wrap template with ref target for react-to-print */}
                     <div ref={contentRef} className="w-full bg-white print:p-0 print:m-0" style={{ minHeight: 'auto' }}>
                         {resumeData.theme === 'modern-split' ? <ModernSplitTheme /> : <ResumeTemplate />}
                     </div>

@@ -90,6 +90,14 @@ export interface SectionLabels {
   certifications: string;
 }
 
+export interface CoverLetter {
+  recipientName: string;
+  recipientTitle: string;
+  companyName: string;
+  companyAddress: string;
+  content: string;
+}
+
 export interface ResumeData {
   theme: string;
   personalInfo: PersonalInfo;
@@ -103,4 +111,5 @@ export interface ResumeData {
   interestsFormat: 'bullets' | 'paragraph';
   interestsParagraph: string;
   sectionLabels: SectionLabels;
+  coverLetter: CoverLetter;
 }

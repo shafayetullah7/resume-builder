@@ -9,8 +9,9 @@ import InterestsForm from './InterestsForm';
 import SectionLabelsForm from './SectionLabelsForm';
 import ImportJson from './ImportJson';
 import ExportJson from './ExportJson';
+import CoverLetterForm from './CoverLetterForm';
 import { useResume } from '../../store/ResumeContext';
-import { User, Briefcase, GraduationCap, Wrench, ChevronDown, ChevronUp, FolderGit2, Languages, Sparkles, Settings, RotateCcw } from 'lucide-react';
+import { User, Briefcase, GraduationCap, Wrench, ChevronDown, ChevronUp, FolderGit2, Languages, Sparkles, Settings, RotateCcw, FileText } from 'lucide-react';
 
 interface AccordionItemProps {
     title: string;
@@ -159,6 +160,15 @@ const EditorPanel: React.FC = () => {
                 onToggle={() => toggleSection('sectionLabels')}
             >
                 <SectionLabelsForm />
+            </AccordionItem>
+
+            <AccordionItem
+                title="Cover Letter"
+                icon={<FileText size={20} />}
+                isOpen={openSection === 'coverLetter'}
+                onToggle={() => toggleSection('coverLetter')}
+            >
+                <CoverLetterForm />
             </AccordionItem>
 
             <div className="pt-8 mt-8 border-t border-gray-200">

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { ResumeData, PersonalInfo, Experience, Education, SkillCategory, Project, Language, SectionLabels, Certification } from '../types/resume';
+import type { ResumeData, PersonalInfo, Experience, Education, SkillCategory, Project, Language, SectionLabels, Certification, CoverLetter } from '../types/resume';
 
 const initialData: ResumeData = {
     theme: 'modern-split',
@@ -141,6 +141,13 @@ const initialData: ResumeData = {
         languages: 'Language Skills',
         interests: 'Future Focus',
         certifications: 'Certifications',
+    },
+    coverLetter: {
+        recipientName: '',
+        recipientTitle: '',
+        companyName: '',
+        companyAddress: '',
+        content: ''
     }
 };
 
@@ -172,6 +179,7 @@ interface ResumeContextType {
     updateInterestsFormat: (format: 'bullets' | 'paragraph') => void;
     updateInterestsParagraph: (text: string) => void;
     updateSectionLabels: (data: Partial<SectionLabels>) => void;
+    updateCoverLetter: (data: Partial<CoverLetter>) => void;
     importResume: (data: Partial<ResumeData>) => void;
     resetData: () => void;
 }
@@ -452,6 +460,13 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         }));
     };
 
+    const updateCoverLetter = (data: Partial<CoverLetter>) => {
+        setResumeData((prev) => ({
+            ...prev,
+            coverLetter: { ...prev.coverLetter, ...data },
+        }));
+    };
+
     const importResume = (data: Partial<ResumeData>) => {
         setResumeData((prev) => ({
             ...prev,
@@ -506,6 +521,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 updateInterestsFormat,
                 updateInterestsParagraph,
                 updateSectionLabels,
+                updateCoverLetter,
                 importResume,
                 resetData,
             }}
