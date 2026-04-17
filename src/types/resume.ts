@@ -64,6 +64,14 @@ export interface Language {
   level: string; // e.g., Native, Fluent, Beginner
 }
 
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string;
+  url?: string;
+}
+
 export interface Interest {
   id: string;
   name: string;
@@ -78,6 +86,7 @@ export interface SectionLabels {
   projects: string;
   languages: string;
   interests: string;
+  certifications: string;
 }
 
 export interface ResumeData {
@@ -89,6 +98,7 @@ export interface ResumeData {
   projects: Project[];
   languages: Language[];
   interests: Interest[];
+  certifications: Certification[];
   interestsFormat: 'bullets' | 'paragraph';
   interestsParagraph: string;
   sectionLabels: SectionLabels;

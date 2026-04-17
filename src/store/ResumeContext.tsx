@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { ResumeData, PersonalInfo, Experience, Education, SkillCategory, Project, Language, SectionLabels } from '../types/resume';
+import type { ResumeData, PersonalInfo, Experience, Education, SkillCategory, Project, Language, SectionLabels, Certification } from '../types/resume';
 
 const initialData: ResumeData = {
     theme: 'modern-split',
@@ -118,6 +118,15 @@ const initialData: ResumeData = {
             name: 'AI-Native Development'
         }
     ],
+    certifications: [
+        {
+            id: '1',
+            name: 'AWS Solutions Architect Associate',
+            issuer: 'Amazon Web Services',
+            date: '2023-03',
+            url: 'https://www.credential.net/abc123'
+        }
+    ],
     interestsFormat: 'bullets',
     interestsParagraph: '',
     sectionLabels: {
@@ -129,6 +138,7 @@ const initialData: ResumeData = {
         projects: 'Projects',
         languages: 'Language Skills',
         interests: 'Future Focus',
+        certifications: 'Certifications',
     }
 };
 
@@ -154,6 +164,9 @@ interface ResumeContextType {
     updateInterest: (id: string, data: Partial<{ name: string }>) => void;
     addInterest: () => void;
     removeInterest: (id: string) => void;
+    updateCertification: (id: string, data: Partial<Certification>) => void;
+    addCertification: () => void;
+    removeCertification: (id: string) => void;
     updateInterestsFormat: (format: 'bullets' | 'paragraph') => void;
     updateInterestsParagraph: (text: string) => void;
     updateSectionLabels: (data: Partial<SectionLabels>) => void;
@@ -187,6 +200,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                     projects: parsed.projects || initialData.projects,
                     languages: parsed.languages || initialData.languages,
                     interests: parsed.interests || initialData.interests,
+                    certifications: parsed.certifications || initialData.certifications,
                 };
             } catch (e) {
                 console.error('Failed to parse saved resume data:', e);
@@ -386,6 +400,36 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         }));
     };
 
+    const updateCertification = (id: string, data: Partial<Certification>) => {
+        setResumeData((prev) => ({
+            ...prev,
+            certifications: prev.certifications.map((cert) => (cert.id === id ? { ...cert, ...data } : cert)),
+        }));
+    };
+
+    const addCertification = () => {
+        setResumeData((prev) => ({
+            ...prev,
+            certifications: [
+                ...prev.certifications,
+                {
+                    id: Date.now().toString(),
+                    name: 'New Certification',
+                    issuer: '',
+                    date: '',
+                    url: '',
+                },
+            ],
+        }));
+    };
+
+    const removeCertification = (id: string) => {
+        setResumeData((prev) => ({
+            ...prev,
+            certifications: prev.certifications.filter((cert) => cert.id !== id),
+        }));
+    };
+
     const updateInterestsFormat = (format: 'bullets' | 'paragraph') => {
         setResumeData((prev) => ({
             ...prev,
@@ -438,6 +482,9 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 updateInterest,
                 addInterest,
                 removeInterest,
+                updateCertification,
+                addCertification,
+                removeCertification,
                 updateInterestsFormat,
                 updateInterestsParagraph,
                 updateSectionLabels,
