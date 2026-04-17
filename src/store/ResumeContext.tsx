@@ -170,6 +170,7 @@ interface ResumeContextType {
     updateInterestsFormat: (format: 'bullets' | 'paragraph') => void;
     updateInterestsParagraph: (text: string) => void;
     updateSectionLabels: (data: Partial<SectionLabels>) => void;
+    importResume: (data: Partial<ResumeData>) => void;
     resetData: () => void;
 }
 
@@ -181,7 +182,6 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         if (savedData) {
             try {
                 const parsed = JSON.parse(savedData);
-                // Deep merge essential objects to ensure new keys (like whatsapp or sectionLabels) exist
                 return {
                     ...initialData,
                     ...parsed,
@@ -193,7 +193,6 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                         ...initialData.sectionLabels,
                         ...(parsed.sectionLabels || {})
                     },
-                    // Ensure arrays are preserved from parsed data
                     experience: parsed.experience || initialData.experience,
                     education: parsed.education || initialData.education,
                     skills: parsed.skills || initialData.skills,
@@ -451,6 +450,23 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         }));
     };
 
+    const importResume = (data: Partial<ResumeData>) => {
+        setResumeData((prev) => ({
+            ...prev,
+            personalInfo: {
+                ...prev.personalInfo,
+                ...(data.personalInfo || {}),
+            },
+            experience: data.experience || prev.experience,
+            education: data.education || prev.education,
+            skills: data.skills || prev.skills,
+            projects: data.projects || prev.projects,
+            languages: data.languages || prev.languages,
+            interests: data.interests || prev.interests,
+            certifications: data.certifications || prev.certifications,
+        }));
+    };
+
     const resetData = () => {
         if (window.confirm('Are you sure you want to clear all data and reset to defaults?')) {
             setResumeData(initialData);
@@ -488,6 +504,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 updateInterestsFormat,
                 updateInterestsParagraph,
                 updateSectionLabels,
+                importResume,
                 resetData,
             }}
         >

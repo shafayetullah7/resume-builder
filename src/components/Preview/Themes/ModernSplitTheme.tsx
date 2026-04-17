@@ -1,11 +1,11 @@
 import React from 'react';
 import { useResume } from '../../../store/ResumeContext';
 import type { SkillCategory, Education, Experience, Project, Language } from '../../../types/resume';
-import { Mail, Phone, MapPin, Link as LinkIcon, Linkedin, Github, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Award, ExternalLink } from 'lucide-react';
 
 const ModernSplitTheme: React.FC = () => {
     const { resumeData } = useResume();
-    const { personalInfo, experience, education, skills, projects, languages, interests, interestsFormat, interestsParagraph, sectionLabels } = resumeData;
+    const { personalInfo, experience, education, skills, projects, languages, interests, certifications, interestsFormat, interestsParagraph, sectionLabels } = resumeData;
 
     const getHostname = (url: string) => {
         try {
@@ -16,147 +16,160 @@ const ModernSplitTheme: React.FC = () => {
         }
     };
 
+    const formatDate = (dateStr: string) => {
+        if (!dateStr) return '';
+        const [year, month] = dateStr.split('-');
+        if (!year) return dateStr;
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return month ? `${months[parseInt(month) - 1]} ${year}` : year;
+    };
+
+    const formatDateRange = (start: string, end: string, current: boolean) => {
+        const startStr = formatDate(start);
+        const endStr = current ? 'Present' : formatDate(end);
+        return startStr && endStr ? `${startStr} — ${endStr}` : startStr || endStr || '';
+    };
+
     return (
         <div className="w-[210mm] min-h-[297mm] mx-auto bg-white text-gray-800 font-sans box-border flex flex-row shadow-2xl">
 
-            {/* Left Sidebar - Light Gray Background */}
-            <div className="w-1/3 min-h-[297mm] bg-[#f8f9fa] p-8 lg:px-10 lg:py-8 border-r border-gray-200">
+            {/* Left Sidebar - Narrow - Skills, Education, Languages, Certifications, Interests */}
+            <div className="w-[30%] min-h-[297mm] bg-[#f8f9fa] p-4 border-r border-gray-200">
 
                 {/* Name and Title */}
-                <div className="mb-8">
-                    <h1 className="text-2xl font-bold uppercase tracking-tight text-[#547690] whitespace-pre-wrap leading-tight mb-4" style={{ wordBreak: 'keep-all' }}>
+                <div className="mb-4">
+                    <h1 className="text-lg font-bold uppercase tracking-tight text-[#547690] whitespace-pre-wrap leading-tight mb-1" style={{ wordBreak: 'keep-all' }}>
                         {personalInfo.fullName || 'Your Name'}
                     </h1>
-                    <div className="flex flex-col gap-2">
-                        {personalInfo.dateOfBirth && (
-                            <div className="flex items-baseline gap-2">
-                                <span className="text-xs font-semibold text-gray-800 w-24 shrink-0 uppercase tracking-wide">Date of birth:</span>
-                                <span className="text-sm font-normal text-gray-700">{personalInfo.dateOfBirth}</span>
-                            </div>
-                        )}
-                        {personalInfo.nationality && (
-                            <div className="flex items-baseline gap-2">
-                                <span className="text-xs font-semibold text-gray-800 w-24 shrink-0 uppercase tracking-wide">Nationality:</span>
-                                <span className="text-sm font-normal text-gray-700">{personalInfo.nationality}</span>
-                            </div>
-                        )}
-                        {personalInfo.gender && (
-                            <div className="flex items-baseline gap-2">
-                                <span className="text-xs font-semibold text-gray-800 w-24 shrink-0 uppercase tracking-wide">Gender:</span>
-                                <span className="text-sm font-normal text-gray-700">{personalInfo.gender}</span>
-                            </div>
-                        )}
-                    </div>
+                    <p className="text-sm font-medium text-blue-700">{personalInfo.jobTitle || 'Your Job Title'}</p>
                 </div>
 
                 {/* Contact Info */}
-                <div className="mb-6">
-                    <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>{sectionLabels.contact}</h2>
-                    <div className="flex flex-col gap-3 text-sm font-normal text-gray-700">
-                        {personalInfo.address && (
-                            <div className="flex items-start gap-3">
-                                <MapPin size={16} className="text-blue-700 mt-0.5 shrink-0" />
-                                <span className="leading-snug">{personalInfo.address}</span>
-                            </div>
-                        )}
+                <div className="mb-3">
+                    <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>{sectionLabels.contact}</h2>
+                    <div className="flex flex-col gap-1 text-xs text-gray-700">
                         {personalInfo.email && (
-                            <div className="flex items-center gap-3">
-                                <Mail size={16} className="text-blue-700 shrink-0" />
-                                <a href={`mailto:${personalInfo.email}`} className="text-blue-700 hover:underline">
-                                    {personalInfo.email}
-                                </a>
+                            <div className="flex items-center gap-1">
+                                <Mail size={12} className="text-blue-700 shrink-0" />
+                                <a href={`mailto:${personalInfo.email}`} className="text-blue-700 hover:underline">{personalInfo.email}</a>
                             </div>
                         )}
                         {personalInfo.phone && (
-                            <div className="flex items-center gap-3">
-                                <Phone size={16} className="text-blue-700 shrink-0" />
+                            <div className="flex items-center gap-1">
+                                <Phone size={12} className="text-blue-700 shrink-0" />
                                 <span>{personalInfo.phone}</span>
                             </div>
                         )}
+                        {personalInfo.address && (
+                            <div className="flex items-start gap-1">
+                                <MapPin size={12} className="text-blue-700 mt-0.5 shrink-0" />
+                                <span>{personalInfo.address}</span>
+                            </div>
+                        )}
                         {personalInfo.linkedinUrl && (
-                            <div className="flex items-center gap-3">
-                                <Linkedin size={16} className="text-blue-700 shrink-0" />
-                                <a href={personalInfo.linkedinUrl} className="text-blue-700 hover:underline">
-                                    {getHostname(personalInfo.linkedinUrl)}
-                                </a>
+                            <div className="flex items-center gap-1">
+                                <Linkedin size={12} className="text-blue-700 shrink-0" />
+                                <a href={personalInfo.linkedinUrl} className="text-blue-700 hover:underline">{getHostname(personalInfo.linkedinUrl)}</a>
                             </div>
                         )}
                         {personalInfo.githubUrl && (
-                            <div className="flex items-center gap-3">
-                                <Github size={16} className="text-blue-700 shrink-0" />
-                                <a href={personalInfo.githubUrl} className="text-blue-700 hover:underline">
-                                    {getHostname(personalInfo.githubUrl)} (Github)
-                                </a>
-                            </div>
-                        )}
-                        {personalInfo.whatsapp && (
-                            <div className="flex items-center gap-3">
-                                <MessageSquare size={16} className="text-blue-700 shrink-0" />
-                                <span>{personalInfo.whatsapp} (WhatsApp)</span>
-                            </div>
-                        )}
-                        {personalInfo.portfolioUrl && (
-                            <div className="flex items-center gap-3">
-                                <LinkIcon size={16} className="text-blue-700 shrink-0" />
-                                <a href={personalInfo.portfolioUrl} className="text-blue-700 hover:underline">
-                                    {getHostname(personalInfo.portfolioUrl)} (Portfolio)
-                                </a>
+                            <div className="flex items-center gap-1">
+                                <Github size={12} className="text-blue-700 shrink-0" />
+                                <a href={personalInfo.githubUrl} className="text-blue-700 hover:underline">{getHostname(personalInfo.githubUrl)}</a>
                             </div>
                         )}
                     </div>
                 </div>
 
-                {/* Profile Summary */}
-                {personalInfo.summary && (
-                    <div className="mb-8">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>{sectionLabels.profile}</h2>
-                        <div className="text-sm font-normal text-gray-700 leading-relaxed whitespace-pre-wrap">
-                            {personalInfo.summary}
-                        </div>
-                    </div>
-                )}
-
-                {/* Languages Section */}
-                {languages.length > 0 && (
-                    <div className="mb-6 mt-2">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
-                            {sectionLabels.languages}
+                {/* Skills */}
+                {skills.length > 0 && (
+                    <div className="mb-3">
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            {sectionLabels.skills}
                         </h2>
-                        <div className="flex flex-col gap-3">
-                            {languages.map((lang: Language) => (
-                                <div key={lang.id} className="flex justify-between items-baseline gap-2">
-                                    <span className="text-sm font-semibold text-gray-800">{lang.name}</span>
-                                    <span className="text-xs font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">{lang.level}</span>
+                        <div className="flex flex-col gap-2">
+                            {skills.map((skillCat: SkillCategory) => (
+                                <div key={skillCat.id}>
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 block">{skillCat.category}</span>
+                                    <span className="text-xs text-gray-700">{skillCat.skills.join(', ')}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
                 )}
 
-                {/* Interests Section */}
+                {/* Education */}
+                {education.length > 0 && (
+                    <div className="mb-3">
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            {sectionLabels.education}
+                        </h2>
+                        <div className="flex flex-col gap-2">
+                            {education.map((edu: Education) => (
+                                <div key={edu.id}>
+                                    <span className="text-xs font-semibold text-gray-800 block">{edu.degree}</span>
+                                    <span className="text-xs text-gray-600">{edu.institution}</span>
+                                    <span className="text-xs text-gray-500 block">{formatDateRange(edu.startDate, edu.endDate, false)}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Certifications */}
+                {certifications.length > 0 && (
+                    <div className="mb-3">
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            {sectionLabels.certifications}
+                        </h2>
+                        <div className="flex flex-col gap-2">
+                            {certifications.map((cert: any) => (
+                                <div key={cert.id} className="flex items-center gap-1">
+                                    <Award size={10} className="text-blue-700 shrink-0" />
+                                    <span className="text-xs font-semibold text-gray-800">{cert.name}</span>
+                                    <span className="text-xs text-gray-500">({formatDate(cert.date)})</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Languages */}
+                {languages.length > 0 && (
+                    <div className="mb-3">
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            {sectionLabels.languages}
+                        </h2>
+                        <div className="flex flex-col gap-1">
+                            {languages.map((lang: Language) => (
+                                <div key={lang.id} className="flex justify-between">
+                                    <span className="text-xs font-semibold text-gray-800">{lang.name}</span>
+                                    <span className="text-xs text-gray-600">{lang.level}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Interests */}
                 {interestsFormat === 'paragraph' ? (
                     interestsParagraph.trim() && (
-                        <div className="mb-6 mt-4">
-                            <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
+                        <div className="mb-3">
+                            <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
                                 {sectionLabels.interests}
                             </h2>
-                            <div className="text-sm font-normal text-gray-700 leading-relaxed whitespace-pre-wrap">
-                                {interestsParagraph}
-                            </div>
+                            <p className="text-xs text-gray-700">{interestsParagraph}</p>
                         </div>
                     )
                 ) : (
                     interests && interests.length > 0 && (
-                        <div className="mb-6 mt-4">
-                            <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
+                        <div className="mb-3">
+                            <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e2e8f0' }}>
                                 {sectionLabels.interests}
                             </h2>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-wrap gap-1">
                                 {interests.map((interest: any) => (
-                                    <div key={interest.id} className="flex items-center gap-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-blue-700/50"></div>
-                                        <span className="text-sm font-medium text-gray-700">{interest.name}</span>
-                                    </div>
+                                    <span key={interest.id} className="text-xs bg-gray-200 px-2 py-0.5 rounded text-gray-700">{interest.name}</span>
                                 ))}
                             </div>
                         </div>
@@ -164,170 +177,92 @@ const ModernSplitTheme: React.FC = () => {
                 )}
             </div>
 
-            {/* Right Main Content */}
-            <div className="w-2/3 p-8 lg:p-10 flex flex-col gap-6">
+            {/* Right Main Content - Summary, Experience, Projects */}
+            <div className="w-[70%] p-5 flex flex-col gap-4">
 
-                {/* Skills */}
-                {skills.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
-                            {sectionLabels.skills}
+                {/* Profile Summary */}
+                {personalInfo.summary && (
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
+                            {sectionLabels.profile}
+                        </h2>
+                        <p className="text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">
+                            {personalInfo.summary}
+                        </p>
+                    </section>
+                )}
+
+                {/* Experience */}
+                {experience.length > 0 && (
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
+                            {sectionLabels.experience}
                         </h2>
                         <div className="flex flex-col gap-3">
-                            {skills.map((skillCat: SkillCategory) => (
-                                <div key={skillCat.id}>
-                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 block mb-0.5">{skillCat.category}</span>
-                                    <span className="text-sm font-normal text-gray-700">{skillCat.skills.join(' | ')}</span>
+                            {experience.map((exp: Experience) => (
+                                <div key={exp.id}>
+                                    <div className="flex justify-between items-baseline">
+                                        <h3 className="text-xs font-bold text-gray-800">{exp.position}</h3>
+                                        <span className="text-xs text-gray-500">{formatDateRange(exp.startDate, exp.endDate, exp.current)}</span>
+                                    </div>
+                                    <p className="text-xs font-medium text-blue-700">{exp.company}</p>
+                                    {exp.description && (
+                                        <p className="text-xs text-gray-700 mt-1 whitespace-pre-wrap">{exp.description}</p>
+                                    )}
+                                    {exp.experienceProjects && exp.experienceProjects.length > 0 && (
+                                        <div className="mt-2 ml-2 border-l border-gray-300 pl-2">
+                                            {exp.experienceProjects.map((proj: any) => (
+                                                <div key={proj.id} className="mb-2">
+                                                    <span className="text-xs font-semibold text-gray-800">{proj.name}</span>
+                                                    {proj.format === 'paragraph' && proj.description && (
+                                                        <p className="text-xs text-gray-600"> - {proj.description}</p>
+                                                    )}
+                                                    {proj.format === 'bullets' && proj.bullets.length > 0 && (
+                                                        <ul className="text-xs text-gray-700 list-disc list-inside mt-1">
+                                                            {proj.bullets.map((b: string, i: number) => <li key={i}>{b}</li>)}
+                                                        </ul>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
                     </section>
                 )}
 
-                {/* generic Timeline Component Helper */}
-                {(() => {
-                    const TimelineItem = ({
-                        leftText,
-                        rightText,
-                        title,
-                        subtitle,
-                        description,
-                        bullets,
-                        link
-                    }: any) => (
-                        <div className="relative pl-6 pb-6 last:pb-0 border-l-[2px] border-blue-700/20 ml-[5px]">
-                            {/* Timeline Dot */}
-                            <div className="absolute w-2.5 h-2.5 bg-blue-700 rounded-full top-1.5" style={{ left: '-1px', transform: 'translateX(-50%)' }}></div>
-
-                            {/* Header Row */}
-                            {(leftText || rightText) && (
-                                <div className="flex justify-start gap-2 items-baseline mb-1">
-                                    {leftText && <span className="text-sm font-medium text-blue-700">{leftText}</span>}
-                                    {rightText && <span className="text-sm font-medium text-gray-500">{rightText}</span>}
+                {/* Projects */}
+                {projects.length > 0 && (
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-[#547690] mb-2 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
+                            {sectionLabels.projects}
+                        </h2>
+                        <div className="flex flex-col gap-2">
+                            {projects.map((proj: Project) => (
+                                <div key={proj.id}>
+                                    <div className="flex justify-between items-baseline">
+                                        <span className="text-xs font-bold text-gray-800">{proj.name}</span>
+                                        {proj.link && (
+                                            <a href={proj.link} target="_blank" rel="noopener noreferrer">
+                                                <ExternalLink size={10} className="text-blue-700" />
+                                            </a>
+                                        )}
+                                    </div>
+                                    <p className="text-xs text-gray-700">{proj.description}</p>
+                                    {proj.technologies.length > 0 && (
+                                        <p className="text-xs text-blue-600 mt-0.5">{proj.technologies.join(' | ')}</p>
+                                    )}
+                                    {proj.highlights.length > 0 && (
+                                        <ul className="text-xs text-gray-700 list-disc list-inside mt-1">
+                                            {proj.highlights.map((h, i) => <li key={i}>{h}</li>)}
+                                        </ul>
+                                    )}
                                 </div>
-                            )}
-
-                            {/* Title & Subtitle */}
-                            <div className="mb-1.5">
-                                <span className="text-base font-bold text-gray-800 mr-2">{title}</span>
-                                {subtitle && <span className="text-sm font-medium text-gray-800">{subtitle}</span>}
-                            </div>
-
-                            {/* Body Content */}
-                            {description && <div className="text-sm font-normal text-gray-700 leading-relaxed mb-1.5">{description}</div>}
-
-                            {bullets && bullets.length > 0 && (
-                                <ul className="text-sm font-normal text-gray-700 list-disc list-inside space-y-1 ml-2">
-                                    {bullets.map((b: string, i: number) => <li key={i}>{b}</li>)}
-                                </ul>
-                            )}
-
-                            {link && (
-                                <div className="text-sm mt-1.5">
-                                    <span className="font-semibold text-gray-800">Link: </span>
-                                    <a href={link} className="text-blue-700 hover:underline underline-offset-2">{link}</a>
-                                </div>
-                            )}
+                            ))}
                         </div>
-                    );
-
-                    return (
-                        <>
-                            {/* Education Section */}
-                            {education.length > 0 && (
-                                <section className="mb-6">
-                                    <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
-                                        {sectionLabels.education}
-                                    </h2>
-                                    <div className="flex flex-col">
-                                        {education.map((edu: Education) => (
-                                            <TimelineItem
-                                                key={edu.id}
-                                                leftText={`${edu.startDate} – ${edu.endDate}`}
-                                                title={edu.degree}
-                                                subtitle={edu.institution}
-                                            />
-                                        ))}
-                                    </div>
-                                </section>
-                            )}
-
-                            {/* Experience Section */}
-                            {experience.length > 0 && (
-                                <section className="mb-6">
-                                    <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
-                                        {sectionLabels.experience}
-                                    </h2>
-                                    <div className="flex flex-col">
-                                        {experience.map((exp: Experience) => (
-                                            <TimelineItem
-                                                key={exp.id}
-                                                title={exp.company}
-                                                description={
-                                                    <div className="mt-1 flex flex-col gap-1.5">
-                                                        <div className="text-sm font-medium text-gray-800">{exp.position}</div>
-                                                        <div className="text-sm font-medium text-blue-700">{exp.startDate} – {exp.current ? 'Present' : exp.endDate}</div>
-
-                                                        {exp.description && <div className="whitespace-pre-wrap text-sm font-normal text-gray-700 mt-1">{exp.description}</div>}
-
-                                                        {exp.experienceProjects && exp.experienceProjects.length > 0 && (
-                                                            <div className="mt-2">
-                                                                <div className="text-xs font-semibold uppercase tracking-wide text-gray-800 mb-2">Projects Contributed To</div>
-                                                                <div className="flex flex-col gap-3">
-                                                                    {exp.experienceProjects.map(proj => (
-                                                                        <div key={proj.id}>
-                                                                            <div className="text-sm font-bold text-gray-800 mb-1">{proj.name}</div>
-                                                                            {proj.format === 'paragraph' && proj.description && (
-                                                                                <div className="text-sm font-normal text-gray-700 whitespace-pre-wrap leading-relaxed">{proj.description}</div>
-                                                                            )}
-                                                                            {proj.format === 'bullets' && proj.bullets.length > 0 && (
-                                                                                <ul className="text-sm font-normal text-gray-700 list-disc list-inside space-y-1 ml-1 leading-relaxed">
-                                                                                    {proj.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                                                                                </ul>
-                                                                            )}
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                }
-                                            />
-                                        ))}
-                                    </div>
-                                </section>
-                            )}
-
-                            {/* Projects Section */}
-                            {projects.length > 0 && (
-                                <section className="mb-6">
-                                    <h2 className="text-sm font-bold uppercase tracking-widest text-[#547690] mb-4 pb-1" style={{ borderBottom: '1px solid #e5e7eb' }}>
-                                        {sectionLabels.projects}
-                                    </h2>
-                                    <div className="flex flex-col">
-                                        {projects.map((proj: Project) => (
-                                            <TimelineItem
-                                                key={proj.id}
-                                                leftText={proj.startDate && proj.endDate ? `${proj.startDate} – ${proj.endDate}` : ''}
-                                                title={proj.name}
-                                                description={
-                                                    <div className="space-y-1">
-                                                        <div className="text-sm font-normal text-gray-700"><span className="font-semibold text-gray-800">Project Description:</span> {proj.description}</div>
-                                                        {proj.technologies.length > 0 && <div className="text-sm font-normal text-gray-700"><span className="font-semibold text-gray-800">Technologies Used:</span> {proj.technologies.join(', ')}</div>}
-                                                        {proj.highlights.length > 0 && <div className="text-xs font-semibold uppercase tracking-wide text-gray-800 pt-1">Contributions:</div>}
-                                                    </div>
-                                                }
-                                                bullets={proj.highlights}
-                                                link={proj.link}
-                                            />
-                                        ))}
-                                    </div>
-                                </section>
-                            )}
-                        </>
-                    );
-                })()}
-
+                    </section>
+                )}
             </div>
         </div>
     );

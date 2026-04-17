@@ -40,13 +40,13 @@ const PreviewPanel: React.FC = () => {
                     className="relative max-w-full print:bg-white bg-white shadow-md mx-auto print:shadow-none print:mx-0 overflow-hidden transform-origin-top"
                     style={{
                         width: '210mm',
-                        minHeight: '297mm',
+                        minHeight: 'auto',
                         // Simple scale on mobile to fit screen width
                         zoom: 'clamp(0.4, 100vw / 220mm, 1)',
                     }}
                 >
                     {/* Wrap template with ref target for react-to-print */}
-                    <div ref={contentRef} className="w-full min-h-[297mm] bg-white print:p-0 print:m-0">
+                    <div ref={contentRef} className="w-full bg-white print:p-0 print:m-0" style={{ minHeight: 'auto' }}>
                         {resumeData.theme === 'modern-split' ? <ModernSplitTheme /> : <ResumeTemplate />}
                     </div>
                 </div>

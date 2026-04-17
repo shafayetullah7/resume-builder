@@ -7,6 +7,9 @@ import ProjectsForm from './ProjectsForm';
 import LanguagesForm from './LanguagesForm';
 import InterestsForm from './InterestsForm';
 import SectionLabelsForm from './SectionLabelsForm';
+import ImportResume from './ImportResume';
+import ImportJson from './ImportJson';
+import ExportJson from './ExportJson';
 import { useResume } from '../../store/ResumeContext';
 import { User, Briefcase, GraduationCap, Wrench, ChevronDown, ChevronUp, FolderGit2, Languages, Sparkles, Settings, RotateCcw } from 'lucide-react';
 
@@ -80,6 +83,12 @@ const EditorPanel: React.FC = () => {
                         Modern Split
                     </button>
                 </div>
+            </div>
+
+            <div className="mb-6 flex gap-3 flex-wrap">
+                <ImportResume />
+                <ImportJson />
+                <ExportJson />
             </div>
 
             <AccordionItem
