@@ -7,7 +7,6 @@ import ProjectsForm from './ProjectsForm';
 import LanguagesForm from './LanguagesForm';
 import InterestsForm from './InterestsForm';
 import SectionLabelsForm from './SectionLabelsForm';
-import ImportResume from './ImportResume';
 import ImportJson from './ImportJson';
 import ExportJson from './ExportJson';
 import { useResume } from '../../store/ResumeContext';
@@ -41,7 +40,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, icon, children, is
                 )}
             </button>
             <div
-                className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+                className={`transition-all duration-300 ease-in-out overflow-y-auto ${isOpen ? 'max-h-[4000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
                     }`}
             >
                 <div className="p-5 border-t border-gray-100">
@@ -86,7 +85,6 @@ const EditorPanel: React.FC = () => {
             </div>
 
             <div className="mb-6 flex gap-3 flex-wrap">
-                <ImportResume />
                 <ImportJson />
                 <ExportJson />
             </div>

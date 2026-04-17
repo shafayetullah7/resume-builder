@@ -27,6 +27,7 @@ const ExperienceForm: React.FC = () => {
                     {
                         id: Date.now().toString(),
                         name: '',
+                        projectDescription: '',
                         format: 'paragraph',
                         description: '',
                         bullets: []
@@ -98,7 +99,7 @@ const ExperienceForm: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 pb-20">
             {experience.map((exp, index) => (
                 <div key={exp.id} className="p-4 bg-gray-50 border border-gray-200 rounded-lg relative group">
                     <button
@@ -205,6 +206,16 @@ const ExperienceForm: React.FC = () => {
                                                     onChange={(e) => handleProjectChange(exp.id, proj.id, 'name', e.target.value)}
                                                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm"
                                                     placeholder="Project Name"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-medium text-gray-600 mb-1">What is the project?</label>
+                                                <input
+                                                    type="text"
+                                                    value={proj.projectDescription || ''}
+                                                    onChange={(e) => handleProjectChange(exp.id, proj.id, 'projectDescription', e.target.value)}
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm"
+                                                    placeholder="Brief description of the project..."
                                                 />
                                             </div>
                                             <div>

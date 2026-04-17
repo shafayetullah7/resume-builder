@@ -23,9 +23,10 @@ export const getJsonTemplate = () => {
         endDate: "",
         current: true,
         description: "Led development of...",
-        experienceProjects: [
+            experienceProjects: [
           {
             name: "Project Name",
+            projectDescription: "Brief description of what the project is",
             format: "bullets",
             description: "",
             bullets: ["Achievement 1", "Achievement 2"]
@@ -154,6 +155,7 @@ export const parseJsonResume = (jsonString: string) => {
       experienceProjects: (exp.experienceProjects || []).map((proj: any, pidx: number) => ({
         id: `proj-${now}-${idx}-${pidx}`,
         name: proj.name || '',
+        projectDescription: proj.projectDescription || '',
         format: proj.format || 'bullets',
         description: proj.description || '',
         bullets: proj.bullets || []

@@ -16,6 +16,7 @@ export interface PersonalInfo {
 export interface ExperienceProject {
   id: string;
   name: string;
+  projectDescription: string;
   format: 'paragraph' | 'bullets';
   description: string;
   bullets: string[];

@@ -24,6 +24,7 @@ export const exportResumeToJson = (resumeData: any) => {
       description: exp.description || '',
       experienceProjects: (exp.experienceProjects || []).map((proj: any) => ({
         name: proj.name || '',
+        projectDescription: proj.projectDescription || '',
         format: proj.format || 'bullets',
         description: proj.description || '',
         bullets: proj.bullets || []

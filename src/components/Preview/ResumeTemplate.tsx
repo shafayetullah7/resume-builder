@@ -213,8 +213,8 @@ const ResumeTemplate: React.FC = () => {
                                                 {exp.experienceProjects.map((proj) => (
                                                     <div key={proj.id} className="mb-2">
                                                         <span className="text-[10pt] font-semibold text-gray-800">{proj.name}</span>
-                                                        {proj.description && (
-                                                            <span className="text-[10pt] text-gray-500"> - {proj.description}</span>
+                                                        {proj.projectDescription && (
+                                                            <span className="text-[10pt] text-gray-500"> - {proj.projectDescription}</span>
                                                         )}
                                                         {proj.format === 'bullets' && proj.bullets.length > 0 && (
                                                             <ul className="text-[10pt] text-gray-700 list-disc list-inside mt-1">

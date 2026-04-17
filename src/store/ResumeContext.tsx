@@ -32,6 +32,7 @@ const initialData: ResumeData = {
                 {
                     id: '1-proj-1',
                     name: 'Core Customer Portal',
+                    projectDescription: 'Customer-facing portal for managing subscriptions and billing',
                     format: 'paragraph',
                     description: 'Led the frontend architecture and development using React and TypeScript. Improved load time by 40% through code splitting and lazy loading.',
                     bullets: []
@@ -39,6 +40,7 @@ const initialData: ResumeData = {
                 {
                     id: '1-proj-2',
                     name: 'Design System Migration',
+                    projectDescription: 'Unified UI component library used across all products',
                     format: 'bullets',
                     description: '',
                     bullets: [
