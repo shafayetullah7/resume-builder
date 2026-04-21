@@ -10,6 +10,7 @@ import SectionLabelsForm from './SectionLabelsForm';
 import ImportJson from './ImportJson';
 import ExportJson from './ExportJson';
 import CoverLetterForm from './CoverLetterForm';
+import ProgressIndicator from './ProgressIndicator';
 import { useResume } from '../../store/ResumeContext';
 import { User, Briefcase, GraduationCap, Wrench, ChevronDown, ChevronUp, FolderGit2, Languages, Sparkles, Settings, RotateCcw, FileText } from 'lucide-react';
 
@@ -89,6 +90,8 @@ const EditorPanel: React.FC = () => {
                 <ImportJson />
                 <ExportJson />
             </div>
+
+            <ProgressIndicator />
 
             <AccordionItem
                 title="Personal Details"

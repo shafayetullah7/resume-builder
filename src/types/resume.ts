@@ -20,6 +20,7 @@ export interface ExperienceProject {
   format: 'paragraph' | 'bullets';
   description: string;
   bullets: string[];
+  liveLink?: string;
 }
 
 export interface Experience {
@@ -48,12 +49,18 @@ export interface SkillCategory {
   skills: string[]; // List of skills in this category
 }
 
+export interface ProjectLink {
+  label: string;
+  liveUrl: string;
+  githubUrl: string;
+}
+
 export interface Project {
   id: string;
   name: string;
   description: string;
   technologies: string[];
-  link?: string;
+  links: ProjectLink[];
   highlights: string[];
   startDate?: string;
   endDate?: string;
@@ -96,6 +103,18 @@ export interface CoverLetter {
   companyName: string;
   companyAddress: string;
   content: string;
+}
+
+export interface SectionProgress {
+  name: string;
+  filled: number;
+  total: number;
+  percentage: number;
+}
+
+export interface ResumeProgress {
+  overall: number;
+  sections: SectionProgress[];
 }
 
 export interface ResumeData {

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { ResumeData, PersonalInfo, Experience, Education, SkillCategory, Project, Language, SectionLabels, Certification, CoverLetter } from '../types/resume';
+import type { ResumeData, PersonalInfo, Experience, Education, SkillCategory, Project, Language, SectionLabels, Certification, CoverLetter, ResumeProgress } from '../types/resume';
+import calculateProgress from '../utils/progressCalculator';
 
 const initialData: ResumeData = {
     theme: 'modern-split',
@@ -86,18 +87,7 @@ const initialData: ResumeData = {
             skills: ['Git', 'Webpack', 'Vite', 'Figma', 'Jest'],
         }
     ],
-    projects: [
-        {
-            id: '1',
-            name: 'Open Source Dashboard',
-            description: 'Analytics dashboard built for open source maintainers.',
-            technologies: ['React', 'D3.js', 'Firebase'],
-            link: 'https://github.com/janedoe/dashboard',
-            highlights: ['Used by over 500 maintainers', 'Reduced loading state overhead by 20%'],
-            startDate: '2022-01',
-            endDate: '2022-06'
-        }
-    ],
+    projects: [],
     languages: [
         {
             id: '1',
@@ -182,6 +172,7 @@ interface ResumeContextType {
     updateCoverLetter: (data: Partial<CoverLetter>) => void;
     importResume: (data: Partial<ResumeData>) => void;
     resetData: () => void;
+    getProgress: () => ResumeProgress;
 }
 
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
@@ -491,6 +482,10 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         }
     };
 
+    const getProgress = (): ResumeProgress => {
+        return calculateProgress(resumeData);
+    };
+
     return (
         <ResumeContext.Provider
             value={{
@@ -524,6 +519,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
                 updateCoverLetter,
                 importResume,
                 resetData,
+                getProgress,
             }}
         >
             {children}

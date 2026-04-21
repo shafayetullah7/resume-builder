@@ -29,7 +29,8 @@ export const getJsonTemplate = () => {
             projectDescription: "Brief description of what the project is",
             format: "bullets",
             description: "",
-            bullets: ["Achievement 1", "Achievement 2"]
+            bullets: ["Achievement 1", "Achievement 2"],
+            liveLink: "https://example.com"
           }
         ]
       }
@@ -56,9 +57,12 @@ export const getJsonTemplate = () => {
     projects: [
       {
         name: "Project Name",
-        description: "Built a...",
+        description: "Built a web application...",
         technologies: ["React", "TypeScript"],
-        link: "https://github.com/...",
+        links: [
+          { label: "Live Demo", liveUrl: "https://example.com", githubUrl: "https://github.com/username/project" },
+          { label: "Frontend", liveUrl: "https://frontend.example.com", githubUrl: "https://github.com/username/frontend" }
+        ],
         highlights: ["Achieved 50% performance improvement", "Used by 1000+ users"],
         startDate: "2023-01",
         endDate: "2023-06"
@@ -158,7 +162,8 @@ export const parseJsonResume = (jsonString: string) => {
         projectDescription: proj.projectDescription || '',
         format: proj.format || 'bullets',
         description: proj.description || '',
-        bullets: proj.bullets || []
+        bullets: proj.bullets || [],
+        liveLink: proj.liveLink || ''
       }))
     })),
     education: (json.education || []).map((edu: any, idx: number) => ({
@@ -179,7 +184,11 @@ export const parseJsonResume = (jsonString: string) => {
       name: proj.name || '',
       description: proj.description || '',
       technologies: proj.technologies || [],
-      link: proj.link || '',
+      links: (proj.links || []).map((link: any) => ({
+        label: link.label || '',
+        liveUrl: link.liveUrl || '',
+        githubUrl: link.githubUrl || ''
+      })),
       highlights: proj.highlights || [],
       startDate: proj.startDate || '',
       endDate: proj.endDate || ''

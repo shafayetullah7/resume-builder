@@ -3,16 +3,28 @@ import { ResumeProvider } from './store/ResumeContext';
 import EditorPanel from './components/Editor/EditorPanel';
 import PreviewPanel from './components/Preview/PreviewPanel';
 import CoverLetterPanel from './components/CoverLetter/CoverLetterPanel';
-import { FileText, Edit2, Mail } from 'lucide-react';
+import { FileText, Edit2, Mail, X } from 'lucide-react';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'editor' | 'preview' | 'coverLetter'>('editor');
+  const [showCoverLetter, setShowCoverLetter] = useState(true);
 
   return (
     <ResumeProvider>
       <div className="min-h-screen flex flex-col bg-gray-50">
         {/* Mobile Header / Navigation */}
         <header className="bg-white shadow-sm sticky top-0 z-50 lg:hidden">
+          <div className="flex items-center justify-between px-2 py-1 border-b bg-gray-50">
+            <button
+              onClick={() => setShowCoverLetter(!showCoverLetter)}
+              className={`flex items-center gap-1 px-2 py-1 text-xs font-medium rounded ${
+                showCoverLetter ? 'text-purple-600 bg-purple-50' : 'text-gray-500 bg-gray-100'
+              }`}
+            >
+              {showCoverLetter ? <Mail size={14} /> : <X size={14} />}
+              Cover Letter {showCoverLetter ? 'ON' : 'OFF'}
+            </button>
+          </div>
           <div className="flex border-b">
             <button
               onClick={() => setActiveTab('editor')}
@@ -56,7 +68,7 @@ function App() {
           <div
             className={`flex-1 overflow-y-auto bg-white border-r border-gray-200 transition-all ${
               activeTab === 'editor' ? 'block' : 'hidden'
-            } lg:block lg:w-1/2 xl:w-5/12`}
+            } lg:block ${showCoverLetter ? 'lg:w-1/3 xl:w-5/12' : 'lg:w-1/2'}`}
           >
             <EditorPanel />
           </div>
@@ -65,7 +77,7 @@ function App() {
           <div
             className={`flex-1 overflow-y-auto bg-gray-100 transition-all flex justify-center ${
               activeTab === 'preview' ? 'block' : 'hidden'
-            } lg:block lg:w-1/2 xl:w-7/12`}
+            } lg:block ${showCoverLetter ? 'lg:w-1/3 xl:w-7/12' : 'lg:w-1/2'}`}
           >
             <PreviewPanel />
           </div>
@@ -74,7 +86,7 @@ function App() {
           <div
             className={`flex-1 overflow-hidden transition-all ${
               activeTab === 'coverLetter' ? 'block' : 'hidden'
-            } lg:block`}
+            } ${showCoverLetter ? 'lg:w-1/3' : 'hidden'}`}
           >
             <CoverLetterPanel />
           </div>
@@ -103,6 +115,17 @@ function App() {
           >
             <FileText size={18} />
             Preview
+          </button>
+          <button
+            onClick={() => setShowCoverLetter(!showCoverLetter)}
+            className={`py-3 px-4 flex items-center justify-center gap-2 font-medium text-sm transition-colors border-l ${
+              showCoverLetter
+                ? 'text-purple-600 bg-purple-50'
+                : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
+            }`}
+            title={showCoverLetter ? 'Hide Cover Letter' : 'Show Cover Letter'}
+          >
+            {showCoverLetter ? <Mail size={18} /> : <X size={18} />}
           </button>
           <button
             onClick={() => setActiveTab('coverLetter')}

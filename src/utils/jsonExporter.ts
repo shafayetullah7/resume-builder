@@ -27,7 +27,8 @@ export const exportResumeToJson = (resumeData: any) => {
         projectDescription: proj.projectDescription || '',
         format: proj.format || 'bullets',
         description: proj.description || '',
-        bullets: proj.bullets || []
+        bullets: proj.bullets || [],
+        liveLink: proj.liveLink || ''
       }))
     })),
     education: (resumeData.education || []).map((edu: any) => ({
@@ -45,7 +46,11 @@ export const exportResumeToJson = (resumeData: any) => {
       name: proj.name || '',
       description: proj.description || '',
       technologies: proj.technologies || [],
-      link: proj.link || '',
+      links: (proj.links || []).map((link: any) => ({
+        label: link.label || '',
+        liveUrl: link.liveUrl || '',
+        githubUrl: link.githubUrl || ''
+      })),
       highlights: proj.highlights || [],
       startDate: proj.startDate || '',
       endDate: proj.endDate || ''

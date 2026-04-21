@@ -240,22 +240,55 @@ const ResumeTemplate: React.FC = () => {
                             <div className="flex flex-col gap-3">
                                 {projects.map((proj) => (
                                     <div key={proj.id}>
+                                        {/* Header: Name + Date */}
                                         <div className="flex justify-between items-baseline">
-                                            <span className="text-[10pt] font-semibold text-gray-800">{proj.name}</span>
-                                            {proj.link && (
-                                                <a href={proj.link} target="_blank" rel="noopener noreferrer">
-                                                    <ExternalLink size={10} className="text-gray-700" />
-                                                </a>
-                                            )}
+                                            <div>
+                                                <span className="text-[10pt] font-semibold text-gray-800">{proj.name}</span>
+                                                {proj.description && (
+                                                    <span className="text-[10pt] text-gray-600"> - {proj.description}</span>
+                                                )}
+                                            </div>
+                                            <span className="text-[10pt] text-gray-500">
+                                                {proj.startDate}{proj.startDate && proj.endDate && ' - '}{proj.endDate}
+                                            </span>
                                         </div>
-                                        <p className="text-[10pt] text-gray-700">{proj.description}</p>
-                                        {proj.technologies.length > 0 && (
+
+                                        {/* Technologies inline */}
+                                        {proj.technologies && proj.technologies.length > 0 && (
                                             <p className="text-[10pt] text-gray-700 mt-0.5">{proj.technologies.join(' | ')}</p>
                                         )}
-                                        {proj.highlights.length > 0 && (
+
+                                        {/* Highlights */}
+                                        {proj.highlights && proj.highlights.length > 0 && (
                                             <ul className="text-[10pt] text-gray-700 list-disc list-inside mt-1">
                                                 {proj.highlights.map((h, i) => <li key={i}>{h}</li>)}
                                             </ul>
+                                        )}
+
+                                        {/* Links */}
+                                        {proj.links && proj.links.length > 0 && (
+                                            <div className="flex flex-col gap-1 text-[10pt] mt-1">
+                                                {proj.links.map((link, i) => (
+                                                    <div key={i} className="flex items-center gap-2">
+                                                        <span className="font-medium text-gray-600">{link.label}:</span>
+                                                        {link.liveUrl && (
+                                                            <a href={link.liveUrl} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline flex items-center gap-1">
+                                                                <ExternalLink size={12} />
+                                                                Live
+                                                            </a>
+                                                        )}
+                                                        {link.liveUrl && link.githubUrl && (
+                                                            <span className="text-gray-400">|</span>
+                                                        )}
+                                                        {link.githubUrl && (
+                                                            <a href={link.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:underline flex items-center gap-1">
+                                                                <Github size={12} />
+                                                                GitHub
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
                                         )}
                                     </div>
                                 ))}

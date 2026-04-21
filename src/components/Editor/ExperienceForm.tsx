@@ -30,7 +30,8 @@ const ExperienceForm: React.FC = () => {
                         projectDescription: '',
                         format: 'paragraph',
                         description: '',
-                        bullets: []
+                        bullets: [],
+                        liveLink: ''
                     }
                 ]
             });
@@ -206,6 +207,16 @@ const ExperienceForm: React.FC = () => {
                                                     onChange={(e) => handleProjectChange(exp.id, proj.id, 'name', e.target.value)}
                                                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm"
                                                     placeholder="Project Name"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-medium text-gray-600 mb-1">Live Link (optional)</label>
+                                                <input
+                                                    type="text"
+                                                    value={proj.liveLink || ''}
+                                                    onChange={(e) => handleProjectChange(exp.id, proj.id, 'liveLink', e.target.value)}
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm"
+                                                    placeholder="https://example.com"
                                                 />
                                             </div>
                                             <div>
