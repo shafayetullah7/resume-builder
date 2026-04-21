@@ -44,28 +44,28 @@ const ModernSplitTheme: React.FC = () => {
                             {personalInfo.jobTitle || 'Your Job Title'}
                         </p>
 
-                        <div className="flex flex-col gap-1.5 text-[11px] text-gray-700">
+                        <div className="flex flex-col gap-1.5 text-[10px] text-gray-700">
                             {personalInfo.email && (
                                 <div className="flex items-center gap-2">
-                                    <Mail size={12} className="text-[#547690]" />
+                                    <Mail size={10} className="text-[#547690]" />
                                     <a href={`mailto:${personalInfo.email}`} className="hover:text-[#547690]">{personalInfo.email}</a>
                                 </div>
                             )}
                             {personalInfo.phone && (
                                 <div className="flex items-center gap-2">
-                                    <Phone size={12} className="text-[#547690]" />
+                                    <Phone size={10} className="text-[#547690]" />
                                     <span>{personalInfo.phone}</span>
                                 </div>
                             )}
                             {personalInfo.address && (
                                 <div className="flex items-center gap-2">
-                                    <MapPin size={12} className="text-[#547690]" />
+                                    <MapPin size={10} className="text-[#547690]" />
                                     <span>{personalInfo.address}</span>
                                 </div>
                             )}
                             {personalInfo.linkedinUrl && (
                                 <div className="flex items-center gap-2">
-                                    <Linkedin size={12} className="text-[#547690]" />
+                                    <Linkedin size={10} className="text-[#547690]" />
                                     <a href={personalInfo.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#547690]">
                                         {getHostname(personalInfo.linkedinUrl)}
                                     </a>
@@ -73,7 +73,7 @@ const ModernSplitTheme: React.FC = () => {
                             )}
                             {personalInfo.githubUrl && (
                                 <div className="flex items-center gap-2">
-                                    <Github size={12} className="text-[#547690]" />
+                                    <Github size={10} className="text-[#547690]" />
                                     <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#547690]">
                                         {getHostname(personalInfo.githubUrl)}
                                     </a>
@@ -81,7 +81,7 @@ const ModernSplitTheme: React.FC = () => {
                             )}
                             {personalInfo.portfolioUrl && (
                                 <div className="flex items-center gap-2">
-                                    <ExternalLink size={12} className="text-[#547690]" />
+                                    <ExternalLink size={10} className="text-[#547690]" />
                                     <a href={personalInfo.portfolioUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#547690]">
                                         {getHostname(personalInfo.portfolioUrl)}
                                     </a>
@@ -89,7 +89,7 @@ const ModernSplitTheme: React.FC = () => {
                             )}
                             {personalInfo.whatsapp && (
                                 <div className="flex items-center gap-2">
-                                    <Phone size={12} className="text-[#547690]" />
+                                    <Phone size={10} className="text-[#547690]" />
                                     <a href={`https://wa.me/${personalInfo.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#547690]">WhatsApp</a>
                                 </div>
                             )}
@@ -237,7 +237,7 @@ const ModernSplitTheme: React.FC = () => {
                                                                     rel="noopener noreferrer"
                                                                     className="text-[#547690] hover:underline flex items-center gap-1 text-[10px] shrink-0"
                                                                 >
-                                                                    <ExternalLink size={9} />
+                                                                    <ExternalLink size={10} />
                                                                     Live
                                                                 </a>
                                                             )}
@@ -293,7 +293,7 @@ const ModernSplitTheme: React.FC = () => {
                                             </ul>
                                         )}
                                         {proj.links && proj.links.length > 0 && (
-                                            <div className="flex flex-col gap-1 text-xs mt-1">
+                                            <div className="flex flex-col gap-1 text-[10px] mt-1">
                                                 {proj.links.map((link, i) => (
                                                     <div key={i} className="flex items-center gap-2">
                                                         <span className="font-medium text-gray-600">{link.label}:</span>
@@ -307,7 +307,7 @@ const ModernSplitTheme: React.FC = () => {
                                                             <span className="text-gray-400">|</span>
                                                         )}
                                                         {link.githubUrl && (
-                                                            <a href={link.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:underline flex items-center gap-1">
+                                                            <a href={link.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[#547690] hover:underline flex items-center gap-1">
                                                                 <Github size={10} />
                                                                 {getHostname(link.githubUrl)}
                                                             </a>
