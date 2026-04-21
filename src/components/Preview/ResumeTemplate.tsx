@@ -317,7 +317,7 @@ const ResumeTemplate: React.FC = () => {
                                                     <div key={i} className="flex items-center gap-2">
                                                         <span className="font-medium text-gray-600">{link.label}:</span>
                                                         {link.liveUrl && (
-                                                            <a href={link.liveUrl} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline flex items-center gap-1">
+                                                            <a href={link.liveUrl} target="_blank" rel="noopener noreferrer" className="hover:underline flex items-center gap-1" style={{ color: accent }}>
                                                                 <ExternalLink size={12} />
                                                                 Live
                                                             </a>
@@ -328,7 +328,7 @@ const ResumeTemplate: React.FC = () => {
                                                         {link.githubUrl && (
                                                             <a href={link.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:underline flex items-center gap-1">
                                                                 <Github size={12} />
-                                                                GitHub
+                                                                {getHostname(link.githubUrl)}
                                                             </a>
                                                         )}
                                                     </div>
