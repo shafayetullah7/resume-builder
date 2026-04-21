@@ -247,17 +247,20 @@ const ResumeTemplate: React.FC = () => {
                                                                     className="text-[10pt] hover:underline flex items-center gap-1 shrink-0"
                                                                     style={{ color: accent }}
                                                                 >
-                                                                    <ExternalLink size={9} />
-                                                                    Live
+                                                                     <ExternalLink size={9} />
+                                                                    {getHostname(proj.liveLink)}
                                                                 </a>
                                                             )}
                                                         </div>
                                                         {proj.projectDescription && (
-                                                            <span className="text-[10pt] text-gray-500">{proj.projectDescription}</span>
+                                                            <div className="text-[10pt] text-gray-500 italic mb-1">{proj.projectDescription}</div>
                                                         )}
-                                                        {proj.format === 'bullets' && proj.bullets.length > 0 && (
+                                                        {proj.format === 'paragraph' && proj.description && (
+                                                            <p className="text-[10pt] text-gray-700 mt-1 whitespace-pre-wrap">{proj.description}</p>
+                                                        )}
+                                                        {proj.format === 'bullets' && proj.bullets && proj.bullets.length > 0 && (
                                                             <ul className="text-[10pt] text-gray-700 list-disc list-inside mt-1">
-                                                                {proj.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                                                                {proj.bullets.map((b, i) => b && <li key={i}>{b}</li>)}
                                                             </ul>
                                                         )}
                                                     </div>
