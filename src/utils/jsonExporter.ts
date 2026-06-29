@@ -1,5 +1,9 @@
-export const exportResumeToJson = (resumeData: any) => {
+import type { ResumeData } from '../types/resume';
+
+export const exportResumeToJson = (resumeData: ResumeData) => {
   return {
+    schemaVersion: resumeData.schemaVersion,
+    theme: resumeData.theme,
     personalInfo: {
       fullName: resumeData.personalInfo?.fullName || '',
       jobTitle: resumeData.personalInfo?.jobTitle || '',
@@ -15,58 +19,66 @@ export const exportResumeToJson = (resumeData: any) => {
       gender: resumeData.personalInfo?.gender || '',
       summary: resumeData.personalInfo?.summary || '',
     },
-    experience: (resumeData.experience || []).map((exp: any) => ({
+    experience: (resumeData.experience || []).map((exp) => ({
       company: exp.company || '',
       position: exp.position || '',
+      location: exp.location || '',
       startDate: exp.startDate || '',
       endDate: exp.endDate || '',
       current: exp.current || false,
+      format: exp.format || 'paragraph',
       description: exp.description || '',
-      experienceProjects: (exp.experienceProjects || []).map((proj: any) => ({
+      bullets: exp.bullets || [],
+      experienceProjects: (exp.experienceProjects || []).map((proj) => ({
         name: proj.name || '',
         projectDescription: proj.projectDescription || '',
         format: proj.format || 'bullets',
         description: proj.description || '',
         bullets: proj.bullets || [],
-        liveLink: proj.liveLink || ''
-      }))
+        liveLink: proj.liveLink || '',
+      })),
     })),
-    education: (resumeData.education || []).map((edu: any) => ({
+    education: (resumeData.education || []).map((edu) => ({
       institution: edu.institution || '',
       degree: edu.degree || '',
       startDate: edu.startDate || '',
       endDate: edu.endDate || '',
-      description: edu.description || ''
+      description: edu.description || '',
     })),
-    skills: (resumeData.skills || []).map((skill: any) => ({
+    skills: (resumeData.skills || []).map((skill) => ({
       category: skill.category || '',
-      skills: skill.skills || []
+      skills: skill.skills || [],
     })),
-    projects: (resumeData.projects || []).map((proj: any) => ({
+    projects: (resumeData.projects || []).map((proj) => ({
       name: proj.name || '',
       description: proj.description || '',
       technologies: proj.technologies || [],
-      links: (proj.links || []).map((link: any) => ({
+      links: (proj.links || []).map((link) => ({
         label: link.label || '',
         liveUrl: link.liveUrl || '',
-        githubUrl: link.githubUrl || ''
+        githubUrl: link.githubUrl || '',
       })),
       highlights: proj.highlights || [],
       startDate: proj.startDate || '',
-      endDate: proj.endDate || ''
+      endDate: proj.endDate || '',
     })),
-    languages: (resumeData.languages || []).map((lang: any) => ({
+    languages: (resumeData.languages || []).map((lang) => ({
       name: lang.name || '',
-      level: lang.level || ''
+      level: lang.level || '',
     })),
-    interests: (resumeData.interests || []).map((interest: any) => ({
-      name: interest.name || ''
+    interests: (resumeData.interests || []).map((interest) => ({
+      name: interest.name || '',
     })),
-    certifications: (resumeData.certifications || []).map((cert: any) => ({
+    interestsFormat: resumeData.interestsFormat,
+    interestsParagraph: resumeData.interestsParagraph || '',
+    certifications: (resumeData.certifications || []).map((cert) => ({
       name: cert.name || '',
       issuer: cert.issuer || '',
       date: cert.date || '',
-      url: cert.url || ''
-    }))
+      url: cert.url || '',
+    })),
+    sectionLabels: resumeData.sectionLabels,
+    sectionVisibility: resumeData.sectionVisibility,
+    coverLetter: resumeData.coverLetter,
   };
 };

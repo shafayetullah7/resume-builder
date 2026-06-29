@@ -47,7 +47,7 @@ const ExperienceForm: React.FC = () => {
         }
     };
 
-    const handleProjectChange = (expId: string, projId: string, field: keyof ExperienceProject, value: any) => {
+    const handleProjectChange = (expId: string, projId: string, field: keyof ExperienceProject, value: ExperienceProject[keyof ExperienceProject]) => {
         const exp = experience.find(e => e.id === expId);
         if (exp && exp.experienceProjects) {
             updateExperience(expId, {
@@ -99,6 +99,29 @@ const ExperienceForm: React.FC = () => {
         }
     };
 
+    const handleAddRoleBullet = (expId: string) => {
+        const exp = experience.find(e => e.id === expId);
+        if (exp) {
+            updateExperience(expId, { bullets: [...(exp.bullets || []), ''] });
+        }
+    };
+
+    const handleRoleBulletChange = (expId: string, bIndex: number, value: string) => {
+        const exp = experience.find(e => e.id === expId);
+        if (exp) {
+            const newBullets = [...exp.bullets];
+            newBullets[bIndex] = value;
+            updateExperience(expId, { bullets: newBullets });
+        }
+    };
+
+    const handleRemoveRoleBullet = (expId: string, bIndex: number) => {
+        const exp = experience.find(e => e.id === expId);
+        if (exp) {
+            updateExperience(expId, { bullets: exp.bullets.filter((_, i) => i !== bIndex) });
+        }
+    };
+
     return (
         <div className="flex flex-col gap-6 pb-20">
             {experience.map((exp, index) => (
@@ -137,26 +160,35 @@ const ExperienceForm: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
                             <input
                                 type="text"
+                                name="location"
+                                value={exp.location || ''}
+                                onChange={(e) => handleChange(exp.id, e)}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                                placeholder="San Francisco, CA or Remote"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                            <input
+                                type="month"
                                 name="startDate"
                                 value={exp.startDate}
                                 onChange={(e) => handleChange(exp.id, e)}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="Jan 2021"
                             />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
                             <input
-                                type="text"
+                                type="month"
                                 name="endDate"
                                 value={exp.endDate}
                                 onChange={(e) => handleChange(exp.id, e)}
                                 disabled={exp.current}
                                 className={`w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 ${exp.current ? 'bg-gray-100 text-gray-400' : ''}`}
-                                placeholder="Present"
                             />
                             <div className="mt-2 flex items-center">
                                 <input
@@ -173,15 +205,68 @@ const ExperienceForm: React.FC = () => {
                             </div>
                         </div>
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                            <textarea
-                                name="description"
-                                value={exp.description}
-                                onChange={(e) => handleChange(exp.id, e)}
-                                rows={2}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="Summary of responsibilities..."
-                            />
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Format</label>
+                            <div className="flex gap-4 mb-3">
+                                <label className="flex items-center text-sm text-gray-700 cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name={`role-format-${exp.id}`}
+                                        checked={exp.format === 'paragraph'}
+                                        onChange={() => updateExperience(exp.id, { format: 'paragraph' })}
+                                        className="mr-2 text-primary-600 focus:ring-primary-500"
+                                    />
+                                    Paragraph
+                                </label>
+                                <label className="flex items-center text-sm text-gray-700 cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name={`role-format-${exp.id}`}
+                                        checked={exp.format === 'bullets'}
+                                        onChange={() => updateExperience(exp.id, { format: 'bullets' })}
+                                        className="mr-2 text-primary-600 focus:ring-primary-500"
+                                    />
+                                    Bullet Points
+                                </label>
+                            </div>
+                            {exp.format === 'paragraph' ? (
+                                <textarea
+                                    name="description"
+                                    value={exp.description}
+                                    onChange={(e) => handleChange(exp.id, e)}
+                                    rows={2}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                                    placeholder="Summary of responsibilities..."
+                                />
+                            ) : (
+                                <div>
+                                    <p className="text-xs text-gray-500 mb-2">
+                                        Start with an action verb + metric when possible (e.g. Reduced load time 40%).
+                                    </p>
+                                    {(exp.bullets || []).map((bullet, bIndex) => (
+                                        <div key={bIndex} className="flex gap-2 mb-2">
+                                            <input
+                                                type="text"
+                                                value={bullet}
+                                                onChange={(e) => handleRoleBulletChange(exp.id, bIndex, e.target.value)}
+                                                className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm"
+                                                placeholder="Key achievement or responsibility..."
+                                            />
+                                            <button
+                                                onClick={() => handleRemoveRoleBullet(exp.id, bIndex)}
+                                                className="p-2 text-gray-400 hover:text-red-500 bg-gray-50 border border-gray-200 rounded-md transition-colors"
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+                                    ))}
+                                    <button
+                                        onClick={() => handleAddRoleBullet(exp.id)}
+                                        className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1 mt-1"
+                                    >
+                                        <Plus size={14} /> Add Bullet
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         {/* Nested Experience Projects */}

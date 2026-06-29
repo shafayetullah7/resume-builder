@@ -4,6 +4,7 @@ import { useResume } from '../../store/ResumeContext';
 const PersonalInfoForm: React.FC = () => {
     const { resumeData, updatePersonalInfo } = useResume();
     const { personalInfo } = resumeData;
+    const summaryLength = personalInfo.summary?.length || 0;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -33,39 +34,6 @@ const PersonalInfoForm: React.FC = () => {
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
                         placeholder="Senior Software Engineer"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-                    <input
-                        type="text"
-                        name="dateOfBirth"
-                        value={personalInfo.dateOfBirth || ''}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                        placeholder="01/01/1990"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Nationality</label>
-                    <input
-                        type="text"
-                        name="nationality"
-                        value={personalInfo.nationality || ''}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                        placeholder="American"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
-                    <input
-                        type="text"
-                        name="gender"
-                        value={personalInfo.gender || ''}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                        placeholder="Female"
                     />
                 </div>
                 <div>
@@ -147,8 +115,53 @@ const PersonalInfoForm: React.FC = () => {
                 </div>
             </div>
 
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
+                <p className="text-sm font-medium text-amber-800 mb-2">Optional personal details</p>
+                <p className="text-xs text-amber-700 mb-3">
+                    Not recommended for US/UK applications — may introduce bias. Leave blank unless required.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">Date of Birth</label>
+                        <input
+                            type="text"
+                            name="dateOfBirth"
+                            value={personalInfo.dateOfBirth || ''}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                            placeholder="01/01/1990"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">Nationality</label>
+                        <input
+                            type="text"
+                            name="nationality"
+                            value={personalInfo.nationality || ''}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                            placeholder="American"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">Gender</label>
+                        <input
+                            type="text"
+                            name="gender"
+                            value={personalInfo.gender || ''}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                            placeholder="Female"
+                        />
+                    </div>
+                </div>
+            </div>
+
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Professional Summary</label>
+                <p className="text-xs text-gray-500 mb-2">
+                    2–4 sentences. Mention years of experience, domain, and 1–2 standout results. Target 300–600 characters.
+                </p>
                 <textarea
                     name="summary"
                     value={personalInfo.summary}
@@ -157,6 +170,9 @@ const PersonalInfoForm: React.FC = () => {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="Brief overview of your career, skills, and goals..."
                 />
+                <p className={`text-xs mt-1 ${summaryLength > 800 ? 'text-red-600' : summaryLength > 600 ? 'text-amber-600' : 'text-gray-400'}`}>
+                    {summaryLength} characters
+                </p>
             </div>
         </div>
     );

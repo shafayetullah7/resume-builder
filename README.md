@@ -1,74 +1,46 @@
-# React + TypeScript + Vite
+# Resume Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A local-first resume and cover letter builder with live PDF preview. Data is saved automatically to your browser's localStorage.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Two workspaces** — **Resume**: live preview and editor side by side; **Cover Letter**: letter form and preview side by side. Personal contact info is shared automatically.
+- **Classic theme** — Single-column, ATS-friendly layout (experience-first DOM order). Default theme.
+- **Modern Split theme** — Two-column visual layout for human readers.
+- **Cover letter** — Edit and export alongside your resume.
+- **JSON import/export** — Back up or migrate your resume data.
+- **Section visibility** — Hide sections on the PDF without deleting data (useful for one-page resumes).
+- **Pre-export validation** — Warns about missing fields before PDF download.
 
-## React Compiler
+## Commands
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
+pnpm dev        # Start dev server
+pnpm build      # Production build
+pnpm lint       # ESLint
+pnpm test       # Run tests
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Themes
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Theme | Best for |
+|-------|----------|
+| **Classic** | ATS systems, corporate applications, keyword parsing |
+| **Modern Split** | Startups, design-forward roles, visual impact |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# resume-builder
+## JSON format
+
+Use **Import JSON** in the editor to load a resume. Download the template from the import dialog for the full schema including `schemaVersion`, `theme`, `sectionVisibility`, and all section data.
+
+## Section visibility
+
+In the editor, open **Section Visibility** to toggle which sections appear on the exported PDF. Data is preserved in the editor when hidden.
+
+## PII fields
+
+Date of birth, nationality, and gender are optional and shown with a warning. They are not recommended for US/UK applications.
+
+## Tech stack
+
+React, TypeScript, Vite, Tailwind CSS, react-to-print

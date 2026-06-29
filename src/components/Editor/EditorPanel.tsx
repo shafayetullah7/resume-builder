@@ -6,13 +6,14 @@ import SkillsForm from './SkillsForm';
 import ProjectsForm from './ProjectsForm';
 import LanguagesForm from './LanguagesForm';
 import InterestsForm from './InterestsForm';
+import CertificationsForm from './CertificationsForm';
 import SectionLabelsForm from './SectionLabelsForm';
+import SectionVisibilityForm from './SectionVisibilityForm';
 import ImportJson from './ImportJson';
 import ExportJson from './ExportJson';
-import CoverLetterForm from './CoverLetterForm';
 import ProgressIndicator from './ProgressIndicator';
 import { useResume } from '../../store/ResumeContext';
-import { User, Briefcase, GraduationCap, Wrench, ChevronDown, ChevronUp, FolderGit2, Languages, Sparkles, Settings, RotateCcw, FileText } from 'lucide-react';
+import { User, Briefcase, GraduationCap, Wrench, ChevronDown, ChevronUp, FolderGit2, Languages, Sparkles, Settings, RotateCcw, Award, Eye } from 'lucide-react';
 
 interface AccordionItemProps {
     title: string;
@@ -69,7 +70,6 @@ const EditorPanel: React.FC = () => {
                     <p className="text-gray-500 mt-1">Fill in your details below.</p>
                 </div>
 
-                {/* Theme Selector UI */}
                 <div className="flex bg-gray-100 p-1 rounded-lg self-start sm:self-auto shadow-inner">
                     <button
                         onClick={() => setTheme('classic')}
@@ -148,6 +148,15 @@ const EditorPanel: React.FC = () => {
             </AccordionItem>
 
             <AccordionItem
+                title="Certifications"
+                icon={<Award size={20} />}
+                isOpen={openSection === 'certifications'}
+                onToggle={() => toggleSection('certifications')}
+            >
+                <CertificationsForm />
+            </AccordionItem>
+
+            <AccordionItem
                 title="Career Interests / Currently Learning"
                 icon={<Sparkles size={20} />}
                 isOpen={openSection === 'interests'}
@@ -157,21 +166,21 @@ const EditorPanel: React.FC = () => {
             </AccordionItem>
 
             <AccordionItem
+                title="Section Visibility"
+                icon={<Eye size={20} />}
+                isOpen={openSection === 'visibility'}
+                onToggle={() => toggleSection('visibility')}
+            >
+                <SectionVisibilityForm />
+            </AccordionItem>
+
+            <AccordionItem
                 title="Section Headers"
                 icon={<Settings size={20} />}
                 isOpen={openSection === 'sectionLabels'}
                 onToggle={() => toggleSection('sectionLabels')}
             >
                 <SectionLabelsForm />
-            </AccordionItem>
-
-            <AccordionItem
-                title="Cover Letter"
-                icon={<FileText size={20} />}
-                isOpen={openSection === 'coverLetter'}
-                onToggle={() => toggleSection('coverLetter')}
-            >
-                <CoverLetterForm />
             </AccordionItem>
 
             <div className="pt-8 mt-8 border-t border-gray-200">

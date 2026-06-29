@@ -6,7 +6,7 @@ const EducationForm: React.FC = () => {
     const { resumeData, updateEducation, addEducation, removeEducation } = useResume();
     const { education } = resumeData;
 
-    const handleChange = (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (id: string, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         updateEducation(id, { [name]: value });
     };
@@ -51,23 +51,32 @@ const EducationForm: React.FC = () => {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
                             <input
-                                type="text"
+                                type="month"
                                 name="startDate"
                                 value={edu.startDate}
                                 onChange={(e) => handleChange(edu.id, e)}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="Sep 2014"
                             />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
                             <input
-                                type="text"
+                                type="month"
                                 name="endDate"
                                 value={edu.endDate}
                                 onChange={(e) => handleChange(edu.id, e)}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="May 2018"
+                            />
+                        </div>
+                        <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Details (optional)</label>
+                            <textarea
+                                name="description"
+                                value={edu.description || ''}
+                                onChange={(e) => handleChange(edu.id, e)}
+                                rows={2}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                                placeholder="Honors, relevant coursework, GPA..."
                             />
                         </div>
                     </div>

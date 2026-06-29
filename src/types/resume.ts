@@ -1,3 +1,5 @@
+export type ThemeId = 'classic' | 'modern-split';
+
 export interface PersonalInfo {
   fullName: string;
   jobTitle: string;
@@ -13,6 +15,7 @@ export interface PersonalInfo {
   gender?: string;
   summary: string;
 }
+
 export interface ExperienceProject {
   id: string;
   name: string;
@@ -27,9 +30,12 @@ export interface Experience {
   id: string;
   company: string;
   position: string;
+  location?: string;
   startDate: string;
   endDate: string;
   description: string;
+  format: 'paragraph' | 'bullets';
+  bullets: string[];
   current: boolean;
   experienceProjects?: ExperienceProject[];
 }
@@ -46,7 +52,7 @@ export interface Education {
 export interface SkillCategory {
   id: string;
   category: string;
-  skills: string[]; // List of skills in this category
+  skills: string[];
 }
 
 export interface ProjectLink {
@@ -69,7 +75,7 @@ export interface Project {
 export interface Language {
   id: string;
   name: string;
-  level: string; // e.g., Native, Fluent, Beginner
+  level: string;
 }
 
 export interface Certification {
@@ -97,6 +103,17 @@ export interface SectionLabels {
   certifications: string;
 }
 
+export interface SectionVisibility {
+  summary: boolean;
+  experience: boolean;
+  projects: boolean;
+  skills: boolean;
+  education: boolean;
+  certifications: boolean;
+  languages: boolean;
+  interests: boolean;
+}
+
 export interface CoverLetter {
   recipientName: string;
   recipientTitle: string;
@@ -117,8 +134,22 @@ export interface ResumeProgress {
   sections: SectionProgress[];
 }
 
+export const CURRENT_SCHEMA_VERSION = 2;
+
+export const defaultSectionVisibility = (): SectionVisibility => ({
+  summary: true,
+  experience: true,
+  projects: true,
+  skills: true,
+  education: true,
+  certifications: true,
+  languages: true,
+  interests: true,
+});
+
 export interface ResumeData {
-  theme: string;
+  schemaVersion: number;
+  theme: ThemeId;
   personalInfo: PersonalInfo;
   experience: Experience[];
   education: Education[];
@@ -130,5 +161,6 @@ export interface ResumeData {
   interestsFormat: 'bullets' | 'paragraph';
   interestsParagraph: string;
   sectionLabels: SectionLabels;
+  sectionVisibility: SectionVisibility;
   coverLetter: CoverLetter;
 }

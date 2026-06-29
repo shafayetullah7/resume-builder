@@ -19,12 +19,7 @@ const ProjectsForm: React.FC = () => {
 
     const handleChange = (id: string, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        if (name === 'technologies' || name === 'highlights') {
-            const arrayValue = value.split(',').map(item => item.trim());
-            updateProject(id, { [name]: arrayValue });
-        } else {
-            updateProject(id, { [name]: value });
-        }
+        updateProject(id, { [name]: value });
     };
 
     const handleAddLink = (projectId: string) => {
@@ -137,23 +132,21 @@ const ProjectsForm: React.FC = () => {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
                             <input
-                                type="text"
+                                type="month"
                                 name="startDate"
                                 value={proj.startDate || ''}
                                 onChange={(e) => handleChange(proj.id, e)}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="Jan 2022"
                             />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
                             <input
-                                type="text"
+                                type="month"
                                 name="endDate"
                                 value={proj.endDate || ''}
                                 onChange={(e) => handleChange(proj.id, e)}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="Mar 2022"
                             />
                         </div>
                         <div className="md:col-span-2">
@@ -200,7 +193,10 @@ const ProjectsForm: React.FC = () => {
 
                         {/* Dynamic Highlights */}
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Highlights</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Highlights</label>
+                            <p className="text-xs text-gray-500 mb-2">
+                                Focus on impact and technologies relevant to your target role.
+                            </p>
                             <div className="flex flex-col gap-2">
                                 {proj.highlights.map((highlight, i) => (
                                     <div key={i} className="flex gap-2">
