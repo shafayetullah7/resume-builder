@@ -1,7 +1,8 @@
 import React from 'react';
 import type { Language } from '../../../types/resume';
 import type { ThemeTokens } from '../Themes/themeTokens';
-import { sectionHeaderClass, sectionHeaderStyle } from '../Themes/themeTokens';
+import { sectionHeaderStyle } from '../Themes/themeTokens';
+import { resumeSectionHeaderClass, resumeText } from '../../../styles/documentTypography';
 
 interface LanguagesSectionProps {
   languages: Language[];
@@ -15,14 +16,14 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({ languages, label, t
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={sectionHeaderClass(tokens)} style={sectionHeaderStyle(tokens)}>
+      <h3 className={resumeSectionHeaderClass} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
       <div className="flex flex-col gap-1">
         {languages.map((lang) => (
           <div key={lang.id} className="flex justify-between">
-            <span className={`${tokens.bodySize} font-semibold text-gray-800`}>{lang.name}</span>
-            <span className={`${tokens.metaSize} text-gray-500`}>{lang.level}</span>
+            <span className={`${resumeText.body} font-semibold text-gray-800`}>{lang.name}</span>
+            <span className={`${resumeText.meta} text-gray-500`}>{lang.level}</span>
           </div>
         ))}
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useResume } from '../../store/ResumeContext';
+import { letterText } from '../../styles/documentTypography';
 
 const CoverLetterTemplate: React.FC = () => {
     const { resumeData } = useResume();
@@ -17,7 +18,7 @@ const CoverLetterTemplate: React.FC = () => {
 
     return (
         <div
-            className="w-full h-full bg-white text-gray-800 p-8 md:p-10 box-border text-[11pt] leading-relaxed"
+            className={`w-full h-full bg-white text-gray-800 p-8 md:p-10 box-border ${letterText.body} leading-relaxed`}
             style={{ fontFamily: "'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif" }}
         >
             <div className="mb-6">

@@ -1,7 +1,8 @@
 import React from 'react';
 import type { Interest } from '../../../types/resume';
 import type { ThemeTokens } from '../Themes/themeTokens';
-import { sectionHeaderClass, sectionHeaderStyle } from '../Themes/themeTokens';
+import { sectionHeaderStyle } from '../Themes/themeTokens';
+import { resumePillClass, resumeSectionHeaderClass, resumeText } from '../../../styles/documentTypography';
 
 interface InterestsSectionProps {
   interests: Interest[];
@@ -26,17 +27,17 @@ const InterestsSection: React.FC<InterestsSectionProps> = ({
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={sectionHeaderClass(tokens)} style={sectionHeaderStyle(tokens)}>
+      <h3 className={resumeSectionHeaderClass} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
       {interestsFormat === 'paragraph' && interestsParagraph ? (
-        <p className={`${tokens.metaSize} text-gray-600 leading-snug`}>{interestsParagraph}</p>
+        <p className={`${resumeText.meta} text-gray-600 leading-snug`}>{interestsParagraph}</p>
       ) : tokens.skillsStyle === 'pills' ? (
         <div className="flex flex-wrap gap-1">
           {interests.map((interest) => (
             <span
               key={interest.id}
-              className={`${tokens.pillSize} px-2 py-0.5 rounded border font-medium`}
+              className={resumePillClass}
               style={{ backgroundColor: `${tokens.accent}15`, color: tokens.accent, borderColor: `${tokens.accent}30` }}
             >
               {interest.name}
@@ -44,7 +45,7 @@ const InterestsSection: React.FC<InterestsSectionProps> = ({
           ))}
         </div>
       ) : (
-        <p className={`${tokens.metaSize} text-gray-600 leading-snug`}>
+        <p className={`${resumeText.meta} text-gray-600 leading-snug`}>
           {interests.map((i) => i.name).join(', ')}
         </p>
       )}

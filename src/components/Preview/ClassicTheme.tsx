@@ -1,5 +1,6 @@
 import React from 'react';
 import { useResume } from '../../store/ResumeContext';
+import { resumeText } from '../../styles/documentTypography';
 import { themeTokens } from './Themes/themeTokens';
 import ContactBlock from './sections/ContactBlock';
 import SummarySection from './sections/SummarySection';
@@ -32,14 +33,14 @@ const ClassicTheme: React.FC = () => {
 
   return (
     <div
-      className={`w-full bg-white text-gray-800 ${tokens.padding} box-border ${tokens.bodySize} leading-snug`}
+      className={`w-full bg-white text-gray-800 ${tokens.padding} box-border ${resumeText.body} leading-snug`}
       style={{ fontFamily: "'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif" }}
     >
       <header className="mb-3 pb-3" style={{ borderBottom: `2px solid ${tokens.accent}` }}>
-        <h1 className={`${tokens.nameSize} font-bold text-gray-900 leading-tight`}>
+        <h1 className={`${resumeText.display} font-bold text-gray-900 leading-tight`}>
           {personalInfo.fullName || 'Your Name'}
         </h1>
-        <h2 className={`${tokens.titleSize} font-semibold`} style={{ color: tokens.accent }}>
+        <h2 className={`${resumeText.body} font-semibold`} style={{ color: tokens.accent }}>
           {personalInfo.jobTitle || 'Your Job Title'}
         </h2>
         <ContactBlock personalInfo={personalInfo} tokens={tokens} layout="inline" />

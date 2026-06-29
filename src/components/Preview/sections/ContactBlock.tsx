@@ -2,6 +2,7 @@ import React from 'react';
 import { Mail, Phone, MapPin, Linkedin, Github, Globe, MessageCircle } from 'lucide-react';
 import type { PersonalInfo } from '../../../types/resume';
 import type { ThemeTokens } from '../Themes/themeTokens';
+import { resumeText } from '../../../styles/documentTypography';
 import { getHostname } from '../../../utils/resumeFormatUtils';
 
 interface ContactBlockProps {
@@ -11,7 +12,7 @@ interface ContactBlockProps {
 }
 
 const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layout }) => {
-  const linkStyle = `hover:underline ${tokens.metaSize}`;
+  const linkStyle = `hover:underline ${resumeText.meta}`;
   const linkColorStyle = { color: tokens.accent };
   const iconClass = 'print:hidden shrink-0';
   const containerClass =
@@ -35,19 +36,19 @@ const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layou
         {personalInfo.phone && (
           <div className={itemClass}>
             {tokens.showIcons && <Phone size={10} style={{ color: tokens.accent }} className={iconClass} />}
-            <span className={tokens.metaSize}>{personalInfo.phone}</span>
+            <span className={resumeText.meta}>{personalInfo.phone}</span>
           </div>
         )}
         {personalInfo.whatsapp && (
           <div className={itemClass}>
             {tokens.showIcons && <MessageCircle size={10} style={{ color: tokens.accent }} className={iconClass} />}
-            <span className={tokens.metaSize}>{personalInfo.whatsapp}</span>
+            <span className={resumeText.meta}>{personalInfo.whatsapp}</span>
           </div>
         )}
         {personalInfo.address && (
           <div className={itemClass}>
             {tokens.showIcons && <MapPin size={10} style={{ color: tokens.accent }} className={iconClass} />}
-            <span className={tokens.metaSize}>{personalInfo.address}</span>
+            <span className={resumeText.meta}>{personalInfo.address}</span>
           </div>
         )}
         {personalInfo.portfolioUrl && (
@@ -77,7 +78,7 @@ const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layou
       </div>
 
       {(personalInfo.dateOfBirth || personalInfo.nationality || personalInfo.gender) && (
-        <div className={`flex flex-wrap gap-x-4 gap-y-0.5 mt-1 text-gray-500 ${tokens.metaSize}`}>
+        <div className={`flex flex-wrap gap-x-4 gap-y-0.5 mt-1 text-gray-500 ${resumeText.meta}`}>
           {personalInfo.dateOfBirth && <span>DOB: {personalInfo.dateOfBirth}</span>}
           {personalInfo.nationality && <span>Nationality: {personalInfo.nationality}</span>}
           {personalInfo.gender && <span>Gender: {personalInfo.gender}</span>}

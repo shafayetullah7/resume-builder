@@ -6,6 +6,16 @@
   --color-primary-500: #22c55e;
   --color-primary-600: #16a34a;
   --color-primary-700: #15803d;
+
+  /* Resume preview typography (fixed pt sizes) */
+  --text-resume-display: 18pt;
+  --text-resume-body: 11pt;
+  --text-resume-meta: 10pt;
+  --text-resume-section: 10pt;
+  --text-resume-pill: 9pt;
+
+  /* Cover letter preview typography */
+  --text-letter-body: 11pt;
 }
 
 body {
