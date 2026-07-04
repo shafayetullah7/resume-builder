@@ -1,6 +1,5 @@
 import React from 'react';
 import { useResume } from '../../../store/ResumeContext';
-import { resumeText } from '../../../styles/documentTypography';
 import { themeTokens } from '../Themes/themeTokens';
 import ContactBlock from '../sections/ContactBlock';
 import SummarySection from '../sections/SummarySection';
@@ -39,10 +38,10 @@ const ModernSplitTheme: React.FC = () => {
       <div className="flex min-h-0">
         <div className={`w-1/3 ${tokens.sidebarBg} print:bg-white ${tokens.padding} flex flex-col gap-3 border-r border-gray-300`}>
           <div className="border-b border-gray-200 pb-3">
-            <h1 className={`${resumeText.display} font-bold leading-tight`} style={{ color: tokens.accent }}>
+            <h1 className={`${tokens.typography.display} font-bold leading-tight`} style={{ color: tokens.accent }}>
               {personalInfo.fullName || 'Your Name'}
             </h1>
-            <p className={`${resumeText.body} font-semibold mt-0.5`} style={{ color: tokens.accent }}>
+            <p className={`${tokens.typography.body} font-semibold mt-0.5`} style={{ color: tokens.accent }}>
               {personalInfo.jobTitle || 'Your Job Title'}
             </p>
             <ContactBlock personalInfo={personalInfo} tokens={tokens} layout="stacked" />

@@ -3,7 +3,7 @@ import { ExternalLink } from 'lucide-react';
 import type { Experience } from '../../../types/resume';
 import type { ThemeTokens } from '../Themes/themeTokens';
 import { sectionHeaderStyle } from '../Themes/themeTokens';
-import { resumeSectionHeaderClass, resumeText } from '../../../styles/documentTypography';
+import { sectionHeaderClass } from '../../../styles/documentTypography';
 import { formatDateRange, getHostname } from '../../../utils/resumeFormatUtils';
 
 interface ExperienceSectionProps {
@@ -18,27 +18,27 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, label
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={resumeSectionHeaderClass} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
       <div className="flex flex-col gap-3">
         {experience.map((exp) => (
           <div key={exp.id} className={`${tokens.entryGap} break-inside-avoid`}>
             <div className="flex justify-between items-baseline">
-              <h4 className={`${resumeText.body} font-semibold text-gray-800`}>{exp.position}</h4>
-              <span className={`${resumeText.meta} text-gray-500`}>
+              <h4 className={`${tokens.typography.body} font-semibold text-gray-800`}>{exp.position}</h4>
+              <span className={`${tokens.typography.meta} text-gray-500`}>
                 {formatDateRange(exp.startDate, exp.endDate, exp.current)}
               </span>
             </div>
-            <p className={`${resumeText.meta} font-semibold`} style={{ color: tokens.accent }}>
+            <p className={`${tokens.typography.meta} font-semibold`} style={{ color: tokens.accent }}>
               {exp.company}
               {exp.location && <span className="text-gray-600 font-normal"> · {exp.location}</span>}
             </p>
             {exp.format === 'paragraph' && exp.description && (
-              <p className={`${resumeText.body} text-gray-700 mt-1 whitespace-pre-wrap leading-snug`}>{exp.description}</p>
+              <p className={`${tokens.typography.body} text-gray-700 mt-1 whitespace-pre-wrap leading-snug`}>{exp.description}</p>
             )}
             {exp.format === 'bullets' && exp.bullets && exp.bullets.length > 0 && (
-              <ul className={`${resumeText.body} text-gray-700 list-disc list-outside ml-4 mt-1 leading-snug`}>
+              <ul className={`${tokens.typography.body} text-gray-700 list-disc list-outside ml-4 mt-1 leading-snug`}>
                 {exp.bullets.map((b, i) => b && <li key={i}>{b}</li>)}
               </ul>
             )}
@@ -47,13 +47,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, label
                 {exp.experienceProjects.map((proj) => (
                   <div key={proj.id} className="mb-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`${resumeText.meta} font-semibold text-gray-800`}>{proj.name}</span>
+                      <span className={`${tokens.typography.meta} font-semibold text-gray-800`}>{proj.name}</span>
                       {proj.liveLink && (
                         <a
                           href={proj.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`${resumeText.meta} hover:underline flex items-center gap-1 shrink-0`}
+                          className={`${tokens.typography.meta} hover:underline flex items-center gap-1 shrink-0`}
                           style={{ color: tokens.accent }}
                         >
                           <ExternalLink size={9} className="print:hidden" />
@@ -62,13 +62,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, label
                       )}
                     </div>
                     {proj.projectDescription && (
-                      <div className={`${resumeText.meta} text-gray-500 italic mb-1`}>{proj.projectDescription}</div>
+                      <div className={`${tokens.typography.meta} text-gray-500 italic mb-1`}>{proj.projectDescription}</div>
                     )}
                     {proj.format === 'paragraph' && proj.description && (
-                      <p className={`${resumeText.body} text-gray-700 mt-1 whitespace-pre-wrap leading-snug`}>{proj.description}</p>
+                      <p className={`${tokens.typography.body} text-gray-700 mt-1 whitespace-pre-wrap leading-snug`}>{proj.description}</p>
                     )}
                     {proj.format === 'bullets' && proj.bullets && proj.bullets.length > 0 && (
-                      <ul className={`${resumeText.body} text-gray-700 list-disc list-outside ml-4 mt-1 leading-snug`}>
+                      <ul className={`${tokens.typography.body} text-gray-700 list-disc list-outside ml-4 mt-1 leading-snug`}>
                         {proj.bullets.map((b, i) => b && <li key={i}>{b}</li>)}
                       </ul>
                     )}

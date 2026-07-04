@@ -2,7 +2,7 @@ import React from 'react';
 import type { Education } from '../../../types/resume';
 import type { ThemeTokens } from '../Themes/themeTokens';
 import { sectionHeaderStyle } from '../Themes/themeTokens';
-import { resumeSectionHeaderClass, resumeText } from '../../../styles/documentTypography';
+import { sectionHeaderClass } from '../../../styles/documentTypography';
 import { formatDateRange } from '../../../utils/resumeFormatUtils';
 
 interface EducationSectionProps {
@@ -17,19 +17,19 @@ const EducationSection: React.FC<EducationSectionProps> = ({ education, label, t
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={resumeSectionHeaderClass} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
       <div className="flex flex-col gap-2">
         {education.map((edu) => (
           <div key={edu.id} className="break-inside-avoid">
-            <span className={`${resumeText.body} font-semibold text-gray-800 block`}>{edu.degree}</span>
-            <span className={`${resumeText.meta} text-gray-600`}>{edu.institution}</span>
-            <span className={`${resumeText.meta} text-gray-500 block`}>
+            <span className={`${tokens.typography.body} font-semibold text-gray-800 block`}>{edu.degree}</span>
+            <span className={`${tokens.typography.meta} text-gray-600`}>{edu.institution}</span>
+            <span className={`${tokens.typography.meta} text-gray-500 block`}>
               {formatDateRange(edu.startDate, edu.endDate, false)}
             </span>
             {edu.description && (
-              <p className={`${resumeText.meta} text-gray-600 mt-0.5 leading-snug`}>{edu.description}</p>
+              <p className={`${tokens.typography.meta} text-gray-600 mt-0.5 leading-snug`}>{edu.description}</p>
             )}
           </div>
         ))}

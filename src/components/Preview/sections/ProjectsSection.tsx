@@ -3,7 +3,7 @@ import { ExternalLink, Github } from 'lucide-react';
 import type { Project } from '../../../types/resume';
 import type { ThemeTokens } from '../Themes/themeTokens';
 import { sectionHeaderStyle } from '../Themes/themeTokens';
-import { resumePillClass, resumeSectionHeaderClass, resumeText } from '../../../styles/documentTypography';
+import { pillClass, sectionHeaderClass } from '../../../styles/documentTypography';
 import { formatDateRange, getHostname } from '../../../utils/resumeFormatUtils';
 
 interface ProjectsSectionProps {
@@ -16,34 +16,34 @@ interface ProjectsSectionProps {
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, label, tokens, visible }) => {
   if (!visible || projects.length === 0) return null;
 
-  const pillClass = tokens.skillsStyle === 'pills' ? resumePillClass : '';
+  const pillClassName = tokens.skillsStyle === 'pills' ? pillClass(tokens.typography) : '';
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={resumeSectionHeaderClass} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
       <div className="flex flex-col gap-3">
         {projects.map((proj) => (
           <div key={proj.id} className="break-inside-avoid">
             <div className="flex justify-between items-baseline">
-              <span className={`${resumeText.body} font-semibold text-gray-800`}>{proj.name}</span>
-              <span className={`${resumeText.meta} text-gray-500`}>
+              <span className={`${tokens.typography.body} font-semibold text-gray-800`}>{proj.name}</span>
+              <span className={`${tokens.typography.meta} text-gray-500`}>
                 {formatDateRange(proj.startDate || '', proj.endDate || '', false)}
               </span>
             </div>
             {proj.description && (
-              <p className={`${resumeText.body} text-gray-700 mt-0.5 leading-snug`}>{proj.description}</p>
+              <p className={`${tokens.typography.body} text-gray-700 mt-0.5 leading-snug`}>{proj.description}</p>
             )}
             {proj.technologies && proj.technologies.length > 0 && (
               tokens.skillsStyle === 'comma' ? (
-                <p className={`${resumeText.meta} text-gray-600 mt-1 leading-snug`}>{proj.technologies.join(', ')}</p>
+                <p className={`${tokens.typography.meta} text-gray-600 mt-1 leading-snug`}>{proj.technologies.join(', ')}</p>
               ) : (
                 <div className="flex flex-wrap gap-1 mt-1">
                   {proj.technologies.map((tech, idx) => (
                     <span
                       key={idx}
-                      className={pillClass}
+                      className={pillClassName}
                       style={{ backgroundColor: `${tokens.accent}15`, color: tokens.accent, borderColor: `${tokens.accent}30` }}
                     >
                       {tech}
@@ -53,12 +53,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, label, toke
               )
             )}
             {proj.highlights && proj.highlights.length > 0 && (
-              <ul className={`${resumeText.body} text-gray-700 list-disc list-outside ml-4 mt-1 leading-snug`}>
+              <ul className={`${tokens.typography.body} text-gray-700 list-disc list-outside ml-4 mt-1 leading-snug`}>
                 {proj.highlights.map((h, i) => h && <li key={i}>{h}</li>)}
               </ul>
             )}
             {proj.links && proj.links.length > 0 && (
-              <div className={`flex flex-col gap-1 ${resumeText.meta} mt-1`}>
+              <div className={`flex flex-col gap-1 ${tokens.typography.meta} mt-1`}>
                 {proj.links.map((link, i) => (
                   <div key={i} className="flex items-center gap-2 flex-wrap">
                     <span className="font-medium text-gray-600">{link.label}:</span>

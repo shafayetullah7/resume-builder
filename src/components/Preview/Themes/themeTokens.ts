@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { ThemeId } from '../../../types/resume';
+import { modernSplitText, resumeText, type ResumeTypography } from '../../../styles/documentTypography';
 
 export interface ThemeTokens {
   id: ThemeId;
@@ -7,6 +8,7 @@ export interface ThemeTokens {
   sidebarBg?: string;
   skillsStyle: 'comma' | 'pills';
   showIcons: boolean;
+  typography: ResumeTypography;
   sectionGap: string;
   entryGap: string;
   padding: string;
@@ -18,6 +20,7 @@ export const themeTokens: Record<ThemeId, ThemeTokens> = {
     accent: '#2D4A6B',
     skillsStyle: 'comma',
     showIcons: true,
+    typography: resumeText,
     sectionGap: 'mb-3',
     entryGap: 'mb-2',
     padding: 'p-5',
@@ -28,6 +31,7 @@ export const themeTokens: Record<ThemeId, ThemeTokens> = {
     sidebarBg: 'bg-[#eef1f4]',
     skillsStyle: 'pills',
     showIcons: true,
+    typography: modernSplitText,
     sectionGap: 'mb-3',
     entryGap: 'mb-2',
     padding: 'p-5',

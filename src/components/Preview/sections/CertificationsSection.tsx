@@ -3,7 +3,7 @@ import { Award } from 'lucide-react';
 import type { Certification } from '../../../types/resume';
 import type { ThemeTokens } from '../Themes/themeTokens';
 import { sectionHeaderStyle } from '../Themes/themeTokens';
-import { resumeSectionHeaderClass, resumeText } from '../../../styles/documentTypography';
+import { sectionHeaderClass } from '../../../styles/documentTypography';
 import { formatDate, getHostname } from '../../../utils/resumeFormatUtils';
 
 interface CertificationsSectionProps {
@@ -18,7 +18,7 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={resumeSectionHeaderClass} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
       <div className="flex flex-col gap-2">
@@ -26,9 +26,9 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
           <div key={cert.id}>
             <div className="flex items-center gap-1">
               <Award size={10} style={{ color: tokens.accent }} className="print:hidden" />
-              <span className={`${resumeText.body} font-semibold text-gray-800`}>{cert.name}</span>
+              <span className={`${tokens.typography.body} font-semibold text-gray-800`}>{cert.name}</span>
             </div>
-            <span className={`${resumeText.meta} text-gray-500 ml-4 block`}>
+            <span className={`${tokens.typography.meta} text-gray-500 ml-4 block`}>
               {cert.issuer} ({formatDate(cert.date)})
               {cert.url && (
                 <>

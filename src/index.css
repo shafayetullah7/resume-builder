@@ -16,6 +16,13 @@
 
   /* Cover letter preview typography */
   --text-letter-body: 11pt;
+
+  /* Modern Split resume — 2px smaller per role than classic */
+  --text-resume-modern-display: calc(18pt - 2px);
+  --text-resume-modern-body: calc(11pt - 2px);
+  --text-resume-modern-meta: calc(10pt - 2px);
+  --text-resume-modern-section: calc(10pt - 2px);
+  --text-resume-modern-pill: calc(9pt - 2px);
 }
 
 body {
