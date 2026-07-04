@@ -32,8 +32,8 @@ export const themeTokens: Record<ThemeId, ThemeTokens> = {
     skillsStyle: 'pills',
     showIcons: true,
     typography: modernSplitText,
-    sectionGap: 'mb-3',
-    entryGap: 'mb-2',
+    sectionGap: 'mb-2',
+    entryGap: 'mb-1.5',
     padding: 'p-5',
   },
 };

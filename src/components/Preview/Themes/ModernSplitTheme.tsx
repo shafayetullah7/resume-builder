@@ -36,8 +36,8 @@ const ModernSplitTheme: React.FC = () => {
       style={{ fontFamily: "'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif" }}
     >
       <div className="flex min-h-0">
-        <div className={`w-1/3 ${tokens.sidebarBg} print:bg-white ${tokens.padding} flex flex-col gap-3 border-r border-gray-300`}>
-          <div className="border-b border-gray-200 pb-3">
+        <div className={`w-1/3 ${tokens.sidebarBg} print:bg-white ${tokens.padding} flex flex-col border-r border-gray-300`}>
+          <div className="border-b border-gray-200 pb-3 mb-2">
             <h1 className={`${tokens.typography.display} font-bold leading-tight`} style={{ color: tokens.accent }}>
               {personalInfo.fullName || 'Your Name'}
             </h1>
@@ -61,7 +61,7 @@ const ModernSplitTheme: React.FC = () => {
           />
         </div>
 
-        <div className={`w-2/3 ${tokens.padding} flex flex-col gap-3`}>
+        <div className={`w-2/3 ${tokens.padding} flex flex-col`}>
           <SummarySection summary={personalInfo.summary} label={sectionLabels.profile} tokens={tokens} visible={sectionVisibility.summary} />
           <ExperienceSection experience={experience} label={sectionLabels.experience} tokens={tokens} visible={sectionVisibility.experience} />
           <ProjectsSection projects={projects} label={sectionLabels.projects} tokens={tokens} visible={sectionVisibility.projects} />
