@@ -12,6 +12,7 @@ export const exportResumeToJson = (resumeData: ResumeData) => {
       address: resumeData.personalInfo?.address || '',
       linkedinUrl: resumeData.personalInfo?.linkedinUrl || '',
       githubUrl: resumeData.personalInfo?.githubUrl || '',
+      gitlabUrl: resumeData.personalInfo?.gitlabUrl || '',
       portfolioUrl: resumeData.personalInfo?.portfolioUrl || '',
       whatsapp: resumeData.personalInfo?.whatsapp || '',
       dateOfBirth: resumeData.personalInfo?.dateOfBirth || '',

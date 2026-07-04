@@ -59,4 +59,23 @@ describe('schemaMigration', () => {
     const migrated = migrateResumeData({ theme: 'invalid' as never });
     expect(migrated.theme).toBe('classic');
   });
+
+  it('renames legacy interests section labels to Learning & Interests', () => {
+    for (const legacy of ['Future Focus', 'Currently Exploring'] as const) {
+      const migrated = migrateResumeData({
+        sectionLabels: {
+          contact: 'Contact',
+          profile: 'Profile',
+          experience: 'Experience',
+          education: 'Education',
+          skills: 'Skills',
+          projects: 'Projects',
+          languages: 'Languages',
+          interests: legacy,
+          certifications: 'Certifications',
+        },
+      });
+      expect(migrated.sectionLabels?.interests).toBe('Learning & Interests');
+    }
+  });
 });

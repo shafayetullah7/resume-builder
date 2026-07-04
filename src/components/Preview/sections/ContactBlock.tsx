@@ -1,8 +1,17 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Linkedin, Github, Globe, MessageCircle } from 'lucide-react';
 import type { PersonalInfo } from '../../../types/resume';
 import type { ThemeTokens } from '../Themes/themeTokens';
 import { getHostname } from '../../../utils/resumeFormatUtils';
+import {
+  MailIcon,
+  PhoneIcon,
+  WhatsAppIcon,
+  MapPinIcon,
+  GlobeIcon,
+  LinkedInIcon,
+  GitHubIcon,
+  GitLabIcon,
+} from '../../../icons';
 
 interface ContactBlockProps {
   personalInfo: PersonalInfo;
@@ -10,11 +19,14 @@ interface ContactBlockProps {
   layout: 'inline' | 'stacked';
 }
 
+const CONTACT_ICON_SIZE = 12;
+
 const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layout }) => {
   const { typography } = tokens;
   const linkStyle = `hover:underline ${typography.meta}`;
   const linkColorStyle = { color: tokens.accent };
-  const iconClass = 'print:hidden shrink-0';
+  const iconClass = 'shrink-0';
+  const iconStyle = { color: tokens.accent };
   const containerClass =
     layout === 'inline'
       ? 'flex flex-wrap gap-x-3 gap-y-0.5 mt-2 text-gray-600'
@@ -22,12 +34,19 @@ const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layou
 
   const itemClass = layout === 'inline' ? 'flex items-center gap-1' : 'flex items-center gap-2';
 
+  const renderIcon = (icon: React.ReactNode) =>
+    tokens.showIcons ? (
+      <span className={iconClass} style={iconStyle}>
+        {icon}
+      </span>
+    ) : null;
+
   return (
     <>
       <div className={containerClass}>
         {personalInfo.email && (
           <div className={itemClass}>
-            {tokens.showIcons && <Mail size={10} style={{ color: tokens.accent }} className={iconClass} />}
+            {renderIcon(<MailIcon size={CONTACT_ICON_SIZE} />)}
             <a href={`mailto:${personalInfo.email}`} className={linkStyle} style={linkColorStyle}>
               {personalInfo.email}
             </a>
@@ -35,25 +54,25 @@ const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layou
         )}
         {personalInfo.phone && (
           <div className={itemClass}>
-            {tokens.showIcons && <Phone size={10} style={{ color: tokens.accent }} className={iconClass} />}
+            {renderIcon(<PhoneIcon size={CONTACT_ICON_SIZE} />)}
             <span className={typography.meta}>{personalInfo.phone}</span>
           </div>
         )}
         {personalInfo.whatsapp && (
           <div className={itemClass}>
-            {tokens.showIcons && <MessageCircle size={10} style={{ color: tokens.accent }} className={iconClass} />}
+            {renderIcon(<WhatsAppIcon size={CONTACT_ICON_SIZE} />)}
             <span className={typography.meta}>{personalInfo.whatsapp}</span>
           </div>
         )}
         {personalInfo.address && (
           <div className={itemClass}>
-            {tokens.showIcons && <MapPin size={10} style={{ color: tokens.accent }} className={iconClass} />}
+            {renderIcon(<MapPinIcon size={CONTACT_ICON_SIZE} />)}
             <span className={typography.meta}>{personalInfo.address}</span>
           </div>
         )}
         {personalInfo.portfolioUrl && (
           <div className={itemClass}>
-            {tokens.showIcons && <Globe size={10} style={{ color: tokens.accent }} className={iconClass} />}
+            {renderIcon(<GlobeIcon size={CONTACT_ICON_SIZE} />)}
             <a href={personalInfo.portfolioUrl} target="_blank" rel="noopener noreferrer" className={linkStyle} style={linkColorStyle}>
               {getHostname(personalInfo.portfolioUrl)}
             </a>
@@ -61,7 +80,7 @@ const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layou
         )}
         {personalInfo.linkedinUrl && (
           <div className={itemClass}>
-            {tokens.showIcons && <Linkedin size={10} style={{ color: tokens.accent }} className={iconClass} />}
+            {renderIcon(<LinkedInIcon size={CONTACT_ICON_SIZE} />)}
             <a href={personalInfo.linkedinUrl} target="_blank" rel="noopener noreferrer" className={linkStyle} style={linkColorStyle}>
               {getHostname(personalInfo.linkedinUrl)}
             </a>
@@ -69,9 +88,17 @@ const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layou
         )}
         {personalInfo.githubUrl && (
           <div className={itemClass}>
-            {tokens.showIcons && <Github size={10} style={{ color: tokens.accent }} className={iconClass} />}
+            {renderIcon(<GitHubIcon size={CONTACT_ICON_SIZE} />)}
             <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer" className={linkStyle} style={linkColorStyle}>
               {getHostname(personalInfo.githubUrl)}
+            </a>
+          </div>
+        )}
+        {personalInfo.gitlabUrl && (
+          <div className={itemClass}>
+            {renderIcon(<GitLabIcon size={CONTACT_ICON_SIZE} />)}
+            <a href={personalInfo.gitlabUrl} target="_blank" rel="noopener noreferrer" className={linkStyle} style={linkColorStyle}>
+              {getHostname(personalInfo.gitlabUrl)}
             </a>
           </div>
         )}

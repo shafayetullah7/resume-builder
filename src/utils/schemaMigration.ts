@@ -50,5 +50,10 @@ export function migrateResumeData(raw: Partial<ResumeData>): ResumeData {
   } as SectionVisibility;
   data.experience = (data.experience ?? []).map(migrateExperience);
 
+  const legacyInterestsLabels = ['Future Focus', 'Currently Exploring'];
+  if (legacyInterestsLabels.includes(data.sectionLabels?.interests ?? '')) {
+    data.sectionLabels = { ...data.sectionLabels, interests: 'Learning & Interests' };
+  }
+
   return data;
 }

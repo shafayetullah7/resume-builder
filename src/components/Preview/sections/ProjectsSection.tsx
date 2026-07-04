@@ -64,14 +64,14 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, label, toke
                     <span className="font-medium text-gray-600">{link.label}:</span>
                     {link.liveUrl && (
                       <a href={link.liveUrl} target="_blank" rel="noopener noreferrer" className="hover:underline flex items-center gap-1" style={{ color: tokens.accent }}>
-                        <ExternalLink size={10} className="print:hidden" />
+                        <ExternalLink size={10} />
                         {getHostname(link.liveUrl)}
                       </a>
                     )}
                     {link.liveUrl && link.githubUrl && <span className="text-gray-400">|</span>}
                     {link.githubUrl && (
                       <a href={link.githubUrl} target="_blank" rel="noopener noreferrer" className="hover:underline flex items-center gap-1" style={{ color: tokens.accent }}>
-                        <Github size={10} className="print:hidden" />
+                        <Github size={10} />
                         {getHostname(link.githubUrl)}
                       </a>
                     )}

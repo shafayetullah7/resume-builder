@@ -10,7 +10,7 @@ const SECTION_KEYS: { key: keyof SectionVisibility; label: string }[] = [
   { key: 'education', label: 'Education' },
   { key: 'certifications', label: 'Certifications' },
   { key: 'languages', label: 'Languages' },
-  { key: 'interests', label: 'Interests / Future Focus' },
+  { key: 'interests', label: 'Learning & Interests' },
 ];
 
 const SectionVisibilityForm: React.FC = () => {

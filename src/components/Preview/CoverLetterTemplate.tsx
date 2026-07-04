@@ -1,20 +1,14 @@
 import React from 'react';
 import { useResume } from '../../store/ResumeContext';
 import { letterText } from '../../styles/documentTypography';
+import { getCoverLetterDate, getCoverLetterSalutation } from '../../utils/coverLetterFormat';
 
 const CoverLetterTemplate: React.FC = () => {
     const { resumeData } = useResume();
     const { personalInfo, coverLetter } = resumeData;
 
-    const today = new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
-
-    const salutation = coverLetter.recipientName
-        ? `Dear ${coverLetter.recipientName},`
-        : 'Dear Hiring Manager,';
+    const today = getCoverLetterDate();
+    const salutation = getCoverLetterSalutation(coverLetter);
 
     return (
         <div

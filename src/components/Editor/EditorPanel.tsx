@@ -157,7 +157,7 @@ const EditorPanel: React.FC = () => {
             </AccordionItem>
 
             <AccordionItem
-                title="Career Interests / Currently Learning"
+                title="Learning & Interests"
                 icon={<Sparkles size={20} />}
                 isOpen={openSection === 'interests'}
                 onToggle={() => toggleSection('interests')}

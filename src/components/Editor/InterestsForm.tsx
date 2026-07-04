@@ -73,7 +73,7 @@ const InterestsForm: React.FC = () => {
                 </>
             ) : (
                 <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Detailed Future Focus / Career Direction</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Detailed Learning & Interests</label>
                     <textarea
                         value={interestsParagraph}
                         onChange={handleParagraphChange}

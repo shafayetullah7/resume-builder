@@ -25,7 +25,7 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
         {certifications.map((cert) => (
           <div key={cert.id}>
             <div className="flex items-center gap-1">
-              <Award size={10} style={{ color: tokens.accent }} className="print:hidden" />
+              <Award size={10} style={{ color: tokens.accent }} />
               <span className={`${tokens.typography.body} font-semibold text-gray-800`}>{cert.name}</span>
             </div>
             <span className={`${tokens.typography.meta} text-gray-500 ml-4 block`}>

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { Download, AlertCircle, X } from 'lucide-react';
 import ModernSplitTheme from './Themes/ModernSplitTheme';
@@ -7,40 +7,14 @@ import { useResume } from '../../store/ResumeContext';
 import { sanitizeFilename } from '../../utils/resumeFormatUtils';
 import { validateResumeForExport, hasBlockingIssues } from '../../utils/resumeValidation';
 import type { ValidationIssue } from '../../utils/resumeValidation';
-
-const A4_WIDTH_MM = 210;
+import { A4_WIDTH_MM, useA4PageZoom } from '../../hooks/useA4PageZoom';
 
 const PreviewPanel: React.FC = () => {
     const { resumeData } = useResume();
     const contentRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
-    const [pageZoom, setPageZoom] = useState(1);
+    const pageZoom = useA4PageZoom(scrollRef);
     const [validationIssues, setValidationIssues] = useState<ValidationIssue[] | null>(null);
-
-    useEffect(() => {
-        const container = scrollRef.current;
-        if (!container) return;
-
-        const updateZoom = () => {
-            const padding = 32;
-            const available = container.clientWidth - padding;
-            const probe = document.createElement('div');
-            probe.style.width = `${A4_WIDTH_MM}mm`;
-            probe.style.position = 'absolute';
-            probe.style.visibility = 'hidden';
-            document.body.appendChild(probe);
-            const pageWidthPx = probe.getBoundingClientRect().width;
-            document.body.removeChild(probe);
-            if (pageWidthPx > 0) {
-                setPageZoom(Math.min(1, available / pageWidthPx));
-            }
-        };
-
-        updateZoom();
-        const observer = new ResizeObserver(updateZoom);
-        observer.observe(container);
-        return () => observer.disconnect();
-    }, []);
 
     const documentTitle = `${sanitizeFilename(resumeData.personalInfo.fullName)}-resume`;
 

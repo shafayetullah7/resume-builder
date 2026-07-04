@@ -17,7 +17,7 @@ const SectionLabelsForm: React.FC = () => {
         { name: 'skills', label: 'Skills Section' },
         { name: 'projects', label: 'Projects Section' },
         { name: 'languages', label: 'Languages Section' },
-        { name: 'interests', label: 'Future Focus Section' },
+        { name: 'interests', label: 'Learning & Interests Section' },
         { name: 'certifications', label: 'Certifications Section' },
     ];
 

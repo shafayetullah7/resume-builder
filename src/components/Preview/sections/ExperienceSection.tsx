@@ -68,7 +68,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, label
                           className={`${tokens.typography.meta} hover:underline flex items-center gap-1 shrink-0`}
                           style={{ color: tokens.accent }}
                         >
-                          <ExternalLink size={9} className="print:hidden" />
+                          <ExternalLink size={9} />
                           {getHostname(proj.liveLink)}
                         </a>
                       )}

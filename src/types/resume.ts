@@ -9,6 +9,7 @@ export interface PersonalInfo {
   portfolioUrl?: string;
   linkedinUrl?: string;
   githubUrl?: string;
+  gitlabUrl?: string;
   whatsapp?: string;
   dateOfBirth?: string;
   nationality?: string;

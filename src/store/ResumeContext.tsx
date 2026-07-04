@@ -133,7 +133,7 @@ const initialData: ResumeData = {
     skills: 'Skills',
     projects: 'Projects',
     languages: 'Language Skills',
-    interests: 'Future Focus',
+    interests: 'Learning & Interests',
     certifications: 'Certifications',
   },
   sectionVisibility: defaultSectionVisibility(),
