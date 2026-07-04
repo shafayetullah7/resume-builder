@@ -1,6 +1,6 @@
 import React from 'react';
 import { useResume } from '../../../store/ResumeContext';
-import { themeTokens } from '../Themes/themeTokens';
+import { getSidebarTokens, themeTokens } from '../Themes/themeTokens';
 import ContactBlock from '../sections/ContactBlock';
 import SummarySection from '../sections/SummarySection';
 import ExperienceSection from '../sections/ExperienceSection';
@@ -29,6 +29,7 @@ const ModernSplitTheme: React.FC = () => {
   } = resumeData;
 
   const tokens = themeTokens['modern-split'];
+  const sidebarTokens = getSidebarTokens(tokens);
 
   return (
     <div
@@ -37,26 +38,26 @@ const ModernSplitTheme: React.FC = () => {
     >
       <div className="flex min-h-0">
         <div className={`w-1/3 ${tokens.sidebarBg} print:bg-white ${tokens.padding} flex flex-col border-r border-gray-300`}>
-          <div className="border-b border-gray-200 pb-2 mb-1.5">
+          <div className="border-b border-gray-200 pb-2 mb-2.5">
             <h1 className={`${tokens.typography.display} font-bold leading-tight`} style={{ color: tokens.accent }}>
               {personalInfo.fullName || 'Your Name'}
             </h1>
             <p className={`${tokens.typography.body} font-semibold mt-0.5`} style={{ color: tokens.accent }}>
               {personalInfo.jobTitle || 'Your Job Title'}
             </p>
-            <ContactBlock personalInfo={personalInfo} tokens={tokens} layout="stacked" />
+            <ContactBlock personalInfo={personalInfo} tokens={sidebarTokens} layout="stacked" />
           </div>
 
-          <SkillsSection skills={skills} label={sectionLabels.skills} tokens={tokens} visible={sectionVisibility.skills} />
-          <EducationSection education={education} label={sectionLabels.education} tokens={tokens} visible={sectionVisibility.education} />
-          <CertificationsSection certifications={certifications} label={sectionLabels.certifications} tokens={tokens} visible={sectionVisibility.certifications} />
-          <LanguagesSection languages={languages} label={sectionLabels.languages} tokens={tokens} visible={sectionVisibility.languages} />
+          <SkillsSection skills={skills} label={sectionLabels.skills} tokens={sidebarTokens} visible={sectionVisibility.skills} />
+          <EducationSection education={education} label={sectionLabels.education} tokens={sidebarTokens} visible={sectionVisibility.education} />
+          <CertificationsSection certifications={certifications} label={sectionLabels.certifications} tokens={sidebarTokens} visible={sectionVisibility.certifications} />
+          <LanguagesSection languages={languages} label={sectionLabels.languages} tokens={sidebarTokens} visible={sectionVisibility.languages} />
           <InterestsSection
             interests={interests}
             interestsFormat={interestsFormat}
             interestsParagraph={interestsParagraph}
             label={sectionLabels.interests}
-            tokens={tokens}
+            tokens={sidebarTokens}
             visible={sectionVisibility.interests}
           />
         </div>

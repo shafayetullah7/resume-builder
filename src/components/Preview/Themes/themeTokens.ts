@@ -17,6 +17,20 @@ export interface ThemeTokens {
   itemGap: string;
   summaryLeading: string;
   contactStackGap: string;
+  sidebarSectionGap?: string;
+  sidebarItemGap?: string;
+  sidebarSectionHeaderSpacing?: string;
+  sidebarContactStackGap?: string;
+}
+
+export function getSidebarTokens(tokens: ThemeTokens): ThemeTokens {
+  return {
+    ...tokens,
+    sectionGap: tokens.sidebarSectionGap ?? tokens.sectionGap,
+    itemGap: tokens.sidebarItemGap ?? tokens.itemGap,
+    sectionHeaderSpacing: tokens.sidebarSectionHeaderSpacing ?? tokens.sectionHeaderSpacing,
+    contactStackGap: tokens.sidebarContactStackGap ?? tokens.contactStackGap,
+  };
 }
 
 export const themeTokens: Record<ThemeId, ThemeTokens> = {
@@ -50,6 +64,10 @@ export const themeTokens: Record<ThemeId, ThemeTokens> = {
     itemGap: 'gap-1.5',
     summaryLeading: 'leading-snug',
     contactStackGap: 'gap-1.5',
+    sidebarSectionGap: 'mb-2.5',
+    sidebarItemGap: 'gap-2',
+    sidebarSectionHeaderSpacing: 'pb-1 mb-2',
+    sidebarContactStackGap: 'gap-2',
   },
 };
 

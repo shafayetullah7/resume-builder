@@ -24,16 +24,28 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, label
       <div className={`flex flex-col ${tokens.blockGap}`}>
         {experience.map((exp) => (
           <div key={exp.id} className={`${tokens.entryGap} break-inside-avoid`}>
-            <div className="flex justify-between items-baseline">
-              <h4 className={`${tokens.typography.body} font-semibold text-gray-800`}>{exp.position}</h4>
-              <span className={`${tokens.typography.meta} text-gray-500`}>
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 items-baseline">
+              <p className={`${tokens.typography.body} min-w-0 leading-snug`}>
+                <span className="font-semibold text-gray-800">{exp.position}</span>
+                {exp.company && (
+                  <>
+                    <span className="text-gray-400"> · </span>
+                    <span className="font-semibold" style={{ color: tokens.accent }}>
+                      {exp.company}
+                    </span>
+                  </>
+                )}
+                {exp.location && (
+                  <>
+                    <span className="text-gray-400"> · </span>
+                    <span className="font-normal text-gray-600">{exp.location}</span>
+                  </>
+                )}
+              </p>
+              <span className={`${tokens.typography.meta} text-gray-500 text-right whitespace-nowrap`}>
                 {formatDateRange(exp.startDate, exp.endDate, exp.current)}
               </span>
             </div>
-            <p className={`${tokens.typography.meta} font-semibold`} style={{ color: tokens.accent }}>
-              {exp.company}
-              {exp.location && <span className="text-gray-600 font-normal"> · {exp.location}</span>}
-            </p>
             {exp.format === 'paragraph' && exp.description && (
               <p className={`${tokens.typography.body} text-gray-700 mt-1 whitespace-pre-wrap leading-snug`}>{exp.description}</p>
             )}
