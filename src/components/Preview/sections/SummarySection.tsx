@@ -15,10 +15,10 @@ const SummarySection: React.FC<SummarySectionProps> = ({ summary, label, tokens,
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={`${sectionHeaderClass(tokens.typography)} flex items-center gap-2`} style={sectionHeaderStyle(tokens)}>
+      <h3 className={`${sectionHeaderClass(tokens.typography, tokens.sectionHeaderSpacing)} flex items-center gap-2`} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
-      <p className={`text-gray-700 ${tokens.typography.body} leading-relaxed whitespace-pre-wrap`}>{summary}</p>
+      <p className={`text-gray-700 ${tokens.typography.body} ${tokens.summaryLeading} whitespace-pre-wrap`}>{summary}</p>
     </section>
   );
 };

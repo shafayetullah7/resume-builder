@@ -18,7 +18,7 @@ const ContactBlock: React.FC<ContactBlockProps> = ({ personalInfo, tokens, layou
   const containerClass =
     layout === 'inline'
       ? 'flex flex-wrap gap-x-3 gap-y-0.5 mt-2 text-gray-600'
-      : 'flex flex-col gap-2 text-gray-700';
+      : `flex flex-col ${tokens.contactStackGap} text-gray-700`;
 
   const itemClass = layout === 'inline' ? 'flex items-center gap-1' : 'flex items-center gap-2';
 

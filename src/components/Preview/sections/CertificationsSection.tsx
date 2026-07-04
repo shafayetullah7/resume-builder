@@ -18,10 +18,10 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography, tokens.sectionHeaderSpacing)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
-      <div className="flex flex-col gap-2">
+      <div className={`flex flex-col ${tokens.itemGap}`}>
         {certifications.map((cert) => (
           <div key={cert.id}>
             <div className="flex items-center gap-1">

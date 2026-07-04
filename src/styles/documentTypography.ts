@@ -31,8 +31,8 @@ export const letterText = {
   body: 'text-letter-body',
 } as const;
 
-export function sectionHeaderClass(typography: ResumeTypography): string {
-  return `${typography.section} font-bold uppercase tracking-wider pb-1 mb-2`;
+export function sectionHeaderClass(typography: ResumeTypography, headerSpacing: string): string {
+  return `${typography.section} font-bold uppercase tracking-wider ${headerSpacing}`;
 }
 
 export function pillClass(typography: ResumeTypography): string {

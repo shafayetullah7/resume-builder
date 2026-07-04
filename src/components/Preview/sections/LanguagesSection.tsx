@@ -16,7 +16,7 @@ const LanguagesSection: React.FC<LanguagesSectionProps> = ({ languages, label, t
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography, tokens.sectionHeaderSpacing)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
       <div className="flex flex-col gap-1">

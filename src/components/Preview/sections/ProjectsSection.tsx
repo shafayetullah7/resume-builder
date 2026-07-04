@@ -20,10 +20,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, label, toke
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography, tokens.sectionHeaderSpacing)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
-      <div className="flex flex-col gap-3">
+      <div className={`flex flex-col ${tokens.blockGap}`}>
         {projects.map((proj) => (
           <div key={proj.id} className="break-inside-avoid">
             <div className="flex justify-between items-baseline">

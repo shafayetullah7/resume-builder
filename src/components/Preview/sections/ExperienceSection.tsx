@@ -18,10 +18,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, label
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography, tokens.sectionHeaderSpacing)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
-      <div className="flex flex-col gap-3">
+      <div className={`flex flex-col ${tokens.blockGap}`}>
         {experience.map((exp) => (
           <div key={exp.id} className={`${tokens.entryGap} break-inside-avoid`}>
             <div className="flex justify-between items-baseline">

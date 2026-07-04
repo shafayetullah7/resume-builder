@@ -12,6 +12,11 @@ export interface ThemeTokens {
   sectionGap: string;
   entryGap: string;
   padding: string;
+  sectionHeaderSpacing: string;
+  blockGap: string;
+  itemGap: string;
+  summaryLeading: string;
+  contactStackGap: string;
 }
 
 export const themeTokens: Record<ThemeId, ThemeTokens> = {
@@ -24,6 +29,11 @@ export const themeTokens: Record<ThemeId, ThemeTokens> = {
     sectionGap: 'mb-3',
     entryGap: 'mb-2',
     padding: 'p-5',
+    sectionHeaderSpacing: 'pb-1 mb-2',
+    blockGap: 'gap-3',
+    itemGap: 'gap-2',
+    summaryLeading: 'leading-relaxed',
+    contactStackGap: 'gap-2',
   },
   'modern-split': {
     id: 'modern-split',
@@ -32,9 +42,14 @@ export const themeTokens: Record<ThemeId, ThemeTokens> = {
     skillsStyle: 'pills',
     showIcons: true,
     typography: modernSplitText,
-    sectionGap: 'mb-2',
-    entryGap: 'mb-1.5',
-    padding: 'p-5',
+    sectionGap: 'mb-1.5',
+    entryGap: 'mb-1',
+    padding: 'p-4',
+    sectionHeaderSpacing: 'pb-0.5 mb-1.5',
+    blockGap: 'gap-2',
+    itemGap: 'gap-1.5',
+    summaryLeading: 'leading-snug',
+    contactStackGap: 'gap-1.5',
   },
 };
 

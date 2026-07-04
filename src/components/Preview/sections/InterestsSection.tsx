@@ -27,7 +27,7 @@ const InterestsSection: React.FC<InterestsSectionProps> = ({
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography, tokens.sectionHeaderSpacing)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
       {interestsFormat === 'paragraph' && interestsParagraph ? (

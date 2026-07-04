@@ -16,10 +16,10 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, label, tokens, vi
 
   return (
     <section className={`${tokens.sectionGap} break-inside-avoid`}>
-      <h3 className={sectionHeaderClass(tokens.typography)} style={sectionHeaderStyle(tokens)}>
+      <h3 className={sectionHeaderClass(tokens.typography, tokens.sectionHeaderSpacing)} style={sectionHeaderStyle(tokens)}>
         {label}
       </h3>
-      <div className="flex flex-col gap-2">
+      <div className={`flex flex-col ${tokens.itemGap}`}>
         {skills.map((skillCat) => (
           <div key={skillCat.id} className="break-inside-avoid">
             <span className={`${tokens.typography.body} font-semibold text-gray-800 block mb-0.5`}>{skillCat.category}</span>

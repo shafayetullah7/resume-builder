@@ -37,7 +37,7 @@ const ModernSplitTheme: React.FC = () => {
     >
       <div className="flex min-h-0">
         <div className={`w-1/3 ${tokens.sidebarBg} print:bg-white ${tokens.padding} flex flex-col border-r border-gray-300`}>
-          <div className="border-b border-gray-200 pb-3 mb-2">
+          <div className="border-b border-gray-200 pb-2 mb-1.5">
             <h1 className={`${tokens.typography.display} font-bold leading-tight`} style={{ color: tokens.accent }}>
               {personalInfo.fullName || 'Your Name'}
             </h1>
